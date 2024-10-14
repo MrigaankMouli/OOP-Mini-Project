@@ -4,6 +4,7 @@ module org.example.oopminiproject {
 
     requires com.dlsc.formsfx;
 
-    opens org.example.oopminiproject to javafx.fxml;
-    exports org.example.oopminiproject;
+    opens oopminiproject to javafx.fxml;
+    exports oopminiproject;
+    exports oopminiproject.controller;
 }
