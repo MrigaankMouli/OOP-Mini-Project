@@ -3,7 +3,9 @@ module org.example.oopminiproject {
     requires javafx.fxml;
 
     requires com.dlsc.formsfx;
-    requires java.logging;
+    requires java.sql;
+
+    exports oopminiproject.controller;
 
     opens oopminiproject.controller to javafx.fxml;
     exports oopminiproject;

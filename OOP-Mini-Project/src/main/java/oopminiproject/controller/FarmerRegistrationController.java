@@ -2,6 +2,7 @@ package oopminiproject.controller;
 
 import oopminiproject.*;
 import oopminiproject.controller.*;
+import oopminiproject.dbmanagement.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +42,9 @@ public class FarmerRegistrationController {
 
         String hashedPassword = hashPassword(password);
 
-        //TODO: handle DAO to push data into farmer DB.
+        FarmerDB.createFarmerTable();
+
+        FarmerDB.insertFarmer(username, fullName, farmAddress, hashedPassword);
     }
 
     private String hashPassword(String password) {
