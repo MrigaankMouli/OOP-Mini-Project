@@ -7,13 +7,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import java.security.NoSuchAlgorithmException;
-import oopminiproject.HelloApplication;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.util.logging.Logger;
 import java.util.logging.Level;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class FarmerRegistrationController {
     private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
@@ -37,8 +39,30 @@ public class FarmerRegistrationController {
         String farmAddress = farmAddressField.getText();
         String password = passwordField.getText();
 
-        //TODO: add password hashing bs
+        String hashedPassword = hashPassword(password);
+
         //TODO: handle DAO to push data into farmer DB.
+    }
+
+    private String hashPassword(String password) {
+        String hashedPassword = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xFF & b);
+                if (hex.length() == 1)
+                    hexString.append('0');
+                hexString.append(hex);
+            }
+
+            hashedPassword = hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+        return hashedPassword;
     }
 
     @FXML
