@@ -22,7 +22,7 @@
         <Button mnemonicParsing="false" prefHeight="101.0" prefWidth="174.0" text="Cattle Management" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
         <Button layoutX="223.0" layoutY="27.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="174.0" text="Review Insurance Policy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
         <Button layoutX="223.0" layoutY="160.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="174.0" text="File Insurance Claim" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Logout" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+        <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="65.0" text="Logout" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
             <GridPane.margin>
                 <Insets right="10.0" top="10.0" />
             </GridPane.margin>
