@@ -1,8 +1,8 @@
 package oopminiproject.controller;
 
 import oopminiproject.*;
-import oopminiproject.controller.*;
 import oopminiproject.dbmanagement.*;
+import oopminiproject.utility.PasswordUtils;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +15,9 @@ import javafx.stage.Stage;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+//TODO: Implement status messages "username taken", etc.
+//TODO: Make it look nice!!
+//both of these are low priority rn. The reg page works, that's what's important.
 
 public class FarmerRegistrationController {
     private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
@@ -40,32 +41,11 @@ public class FarmerRegistrationController {
         String farmAddress = farmAddressField.getText();
         String password = passwordField.getText();
 
-        String hashedPassword = hashPassword(password);
+        String hashedPassword = PasswordUtils.hashPassword(password);
 
         FarmerDB.createFarmerTable();
 
         FarmerDB.insertFarmer(username, fullName, farmAddress, hashedPassword);
-    }
-
-    private String hashPassword(String password) {
-        String hashedPassword = "";
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
-
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xFF & b);
-                if (hex.length() == 1)
-                    hexString.append('0');
-                hexString.append(hex);
-            }
-
-            hashedPassword = hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-        return hashedPassword;
     }
 
     @FXML

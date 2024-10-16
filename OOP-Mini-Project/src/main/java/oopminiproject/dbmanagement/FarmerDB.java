@@ -3,6 +3,7 @@ package oopminiproject.dbmanagement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -44,5 +45,27 @@ public class FarmerDB {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    public static String fetchPasswordHash(String username) {
+        String sql = "SELECT hashedPassword FROM farmers WHERE username = ?";
+
+        String fetchedHash = "";
+
+        try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                fetchedHash = resultSet.getString("hashedPassword");
+                System.out.println("Fetched hash: " + fetchedHash);
+            } else {
+                System.out.println("Unable to fetch.");
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        return fetchedHash;
     }
 }

@@ -1,7 +1,7 @@
 package oopminiproject.controller;
 
 import oopminiproject.*;
-import oopminiproject.controller.*;
+import oopminiproject.dbmanagement.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oopminiproject.utility.PasswordUtils;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -28,7 +29,12 @@ public class FarmerLoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        //TODO: compare to stored password and see if valid
+        String hashedPassword = PasswordUtils.hashPassword(password);
+        String storedPassword = FarmerDB.fetchPasswordHash(username);
+        if (hashedPassword.equals(storedPassword))
+            System.out.println("Auth successful");
+        else
+            System.out.println("Auth failed");
     }
 
     @FXML
