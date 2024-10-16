@@ -7,44 +7,33 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import java.security.NoSuchAlgorithmException;
-import oopminiproject.HelloApplication;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-public class FarmerRegistrationController {
-    private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
+public class FarmerLoginController {
+    private static final Logger LOGGER = Logger.getLogger(FarmerLoginController.class.getName());
 
     @FXML
     private TextField usernameField;
 
     @FXML
-    private TextField fullNameField;
-
-    @FXML
-    private TextField farmAddressField;
-
-    @FXML
     private PasswordField passwordField;
 
     @FXML
-    private void handleRegister() {
+    private void handleLogin() {
         String username = usernameField.getText();
-        String fullName = fullNameField.getText();
-        String farmAddress = farmAddressField.getText();
         String password = passwordField.getText();
 
-        //TODO: add password hashing bs
-        //TODO: handle DAO to push data into farmer DB.
+        //TODO: compare to stored password and see if valid
     }
 
     @FXML
-    private void moveToLogin() {
+    private void moveToRegister() {
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("farmerLogin-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("farmerRegistration-view.fxml"));
             Parent loginRoot = loader.load();
             Stage currentStage = (Stage) usernameField.getScene().getWindow();
             Scene newScene = new Scene(loginRoot);
@@ -53,4 +42,6 @@ public class FarmerRegistrationController {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
+
+    //TODO: Add ADMIN LOGIN page.
 }

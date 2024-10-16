@@ -6,31 +6,47 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="oopminiproject.controller.FarmerRegistrationController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopminiproject.controller.FarmerRegistrationController">
 
-    <GridPane layoutX="100" layoutY="50" hgap="10" vgap="10">
+    <GridPane hgap="10" prefHeight="400.0" prefWidth="600.0" vgap="10">
         <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
+            <Insets bottom="20" left="20" right="20" top="20" />
         </padding>
 
-        <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="usernameField" promptText="Enter Username" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label prefWidth="213.0" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="usernameField" promptText="Enter Username" GridPane.columnIndex="1" />
 
-        <Label text="Full Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="fullNameField" promptText="Enter Full Name" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="fullNameField" promptText="Enter Full Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Farm Address:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextField fx:id="farmAddressField" promptText="Enter Farm Address" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="Farm Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="farmAddressField" prefWidth="300.0" promptText="Enter Farm Address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Password:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <PasswordField fx:id="passwordField" promptText="Enter Password" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <PasswordField fx:id="passwordField" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Button text="Register" onAction="#handleRegister" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
+        <Button onAction="#handleRegister" prefWidth="60.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" />
+      <Button layoutX="410.0" layoutY="343.0" onAction="#moveToLogin" prefWidth="60.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" />
+      <columnConstraints>
+         <ColumnConstraints maxWidth="293.0" minWidth="218.0" prefWidth="277.0" />
+         <ColumnConstraints maxWidth="144.0" minWidth="300.0" prefWidth="85.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      </rowConstraints>
     </GridPane>
 
 </AnchorPane>
