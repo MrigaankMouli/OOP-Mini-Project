@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oopminiproject.HelloApplication;
 
@@ -25,5 +26,12 @@ public class FXUtils {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    public static void forceNumericTextField(TextField textField) {
+        textField.textProperty().addListener((observableValue, oldvalue, newvalue) -> {
+            if (!newvalue.matches("\\d*"))
+                textField.setText(newvalue.replaceAll("\\D", ""));
+        });
     }
 }

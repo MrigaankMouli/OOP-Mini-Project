@@ -68,4 +68,7 @@ public class FarmerDB {
 
         return fetchedHash;
     }
+
+    //TODO: write a full name fetch method for cow ownership in DB.
+    //TODO: generic the fetch methods
 }

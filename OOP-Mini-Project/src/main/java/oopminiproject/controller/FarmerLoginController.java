@@ -3,16 +3,14 @@ package oopminiproject.controller;
 import oopminiproject.*;
 import oopminiproject.dbmanagement.*;
 import oopminiproject.utility.FXUtils;
-import oopminiproject.utility.PasswordUtils;
+import oopminiproject.utility.SecurityUtils;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
-import javax.swing.*;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 public class FarmerLoginController {
     private static final Logger LOGGER = Logger.getLogger(FarmerLoginController.class.getName());
@@ -28,7 +26,7 @@ public class FarmerLoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        String hashedPassword = PasswordUtils.hashPassword(password);
+        String hashedPassword = SecurityUtils.hash(password);
         String storedPassword = FarmerDB.fetchPasswordHash(username);
         if (hashedPassword.equals(storedPassword)) {
             System.out.println("Auth successful");

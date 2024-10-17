@@ -1,25 +1,22 @@
 package oopminiproject.controller;
 
-import oopminiproject.*;
+import javafx.event.ActionEvent;
 import oopminiproject.dbmanagement.*;
-import oopminiproject.utility.PasswordUtils;
+import oopminiproject.utility.FXUtils;
+import oopminiproject.utility.SecurityUtils;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 //TODO: Implement status messages "username taken", etc.
 //TODO: Make it look nice!!
 //both of these are low priority rn. The reg page works, that's what's important.
 
 public class FarmerRegistrationController {
+
     private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
 
     @FXML
@@ -41,7 +38,7 @@ public class FarmerRegistrationController {
         String farmAddress = farmAddressField.getText();
         String password = passwordField.getText();
 
-        String hashedPassword = PasswordUtils.hashPassword(password);
+        String hashedPassword = SecurityUtils.hash(password);
 
         FarmerDB.createFarmerTable();
 
@@ -49,15 +46,7 @@ public class FarmerRegistrationController {
     }
 
     @FXML
-    private void moveToLogin() {
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("farmerLogin-view.fxml"));
-            Parent loginRoot = loader.load();
-            Stage currentStage = (Stage) usernameField.getScene().getWindow();
-            Scene newScene = new Scene(loginRoot);
-            currentStage.setScene(newScene);
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+    private void moveToLogin(ActionEvent event) {
+        FXUtils.swapScene(event, "farmerLogin-view.fxml");
     }
 }

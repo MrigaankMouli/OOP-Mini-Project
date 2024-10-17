@@ -8,14 +8,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PasswordUtils {
+public class SecurityUtils {
     private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
 
-    public static String hashPassword(String password) {
-        String hashedPassword = "";
+    public static String hash(String string) {
+        String hashedString = "";
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
+            byte[] hash = digest.digest(string.getBytes());
             StringBuilder hexString = new StringBuilder();
 
             for (byte b : hash) {
@@ -25,10 +25,10 @@ public class PasswordUtils {
                 hexString.append(hex);
             }
 
-            hashedPassword = hexString.toString();
+            hashedString = hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
-        return hashedPassword;
+        return hashedString;
     }
 }
