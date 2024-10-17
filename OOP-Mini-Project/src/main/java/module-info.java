@@ -4,7 +4,7 @@ module org.example.oopminiproject {
 
     requires com.dlsc.formsfx;
     requires java.sql;
-    requires java.desktop;
+    requires org.jetbrains.annotations;
 
     exports oopminiproject.controller;
 

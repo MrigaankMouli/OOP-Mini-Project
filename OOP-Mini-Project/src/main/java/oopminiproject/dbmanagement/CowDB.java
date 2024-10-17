@@ -1,10 +1,15 @@
 package oopminiproject.dbmanagement;
 
+import oopminiproject.Cow;
+import oopminiproject.Session;
 import oopminiproject.utility.SecurityUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,5 +60,40 @@ public class CowDB {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    @org.jetbrains.annotations.NotNull
+    public static List<Cow> getOwnedCows() {
+        String owner = Session.getInstance().getUsername();
+
+        String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, owner, checksum FROM cows WHERE owner = ?";
+
+        List<Cow> ownedCows = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, owner);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String breed = resultSet.getString("breed");
+                int age = resultSet.getInt("age");
+                int weight = resultSet.getInt("weight");
+                String insurance = resultSet.getString("insurance");
+                String vaccinationStatus = resultSet.getString("vaccinationStatus");
+
+                String calculatedHash = SecurityUtils.hash(breed + age + weight + insurance +
+                                                            vaccinationStatus + owner);
+                if (calculatedHash.equals(resultSet.getString("checksum"))) {
+                    Cow cow = new Cow(id, breed, age, weight, insurance, vaccinationStatus, owner);
+                    ownedCows.add(cow);
+                } //TODO: what to do if this is untrue?
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        return ownedCows;
     }
 }

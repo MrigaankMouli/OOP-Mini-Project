@@ -8,9 +8,6 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 
-import javax.swing.*;
-import java.io.IOException;
-
 import java.util.logging.Logger;
 import java.util.logging.Level;
 

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="oopminiproject.controller.CattleManagerController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopminiproject.controller.CattleManagerController">
     <SplitPane dividerPositions="0.42474916387959866" prefHeight="400.0" prefWidth="600.0">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <GridPane prefHeight="400.0" prefWidth="251.0">
@@ -78,10 +78,15 @@
             </GridPane>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-            <TableView prefHeight="398.0" prefWidth="341.0">
+            <TableView fx:id="ownedCowsTable" prefHeight="398.0" prefWidth="341.0">
                 <columns>
-                    <TableColumn prefWidth="75.0" text="C1" />
-                    <TableColumn prefWidth="75.0" text="C2" />
+                    <TableColumn fx:id="idColumn" prefWidth="23.0" text="ID" />
+                    <TableColumn fx:id="breedColumn" prefWidth="43.0" text="Breed" />
+               <TableColumn fx:id="ageColumn" prefWidth="34.0" text="Age" />
+               <TableColumn fx:id="weightColumn" prefWidth="52.0" text="Weight" />
+               <TableColumn fx:id="insuranceColumn" prefWidth="64.0" text="Insurance" />
+               <TableColumn fx:id="vaccinationStatusColumn" prefWidth="70.0" text="Vax status" />
+               <TableColumn fx:id="ownerColumn" prefWidth="54.0" text="Owner" />
                 </columns>
             </TableView>
         </AnchorPane>

@@ -3,10 +3,14 @@ package oopminiproject.controller;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.utility.SecurityUtils;
+import oopminiproject.Cow;
+
+import java.util.List;
 
 public class CattleManagerController {
 
@@ -19,19 +23,33 @@ public class CattleManagerController {
     @FXML
     private TextField cowAgeField;
 
+    ToggleGroup vaccinationStatusGroup = new ToggleGroup();
     @FXML
     private TextField cowWeightField;
 
     @FXML
     private RadioButton notVaccinated;
-
     @FXML
     private RadioButton partiallyVaccinated;
-
     @FXML
     private RadioButton fullyVaccinated;
 
-    ToggleGroup vaccinationStatusGroup = new ToggleGroup();
+    @FXML
+    private TableView<Cow> ownedCowsTable;
+    @FXML
+    private TableColumn<Cow, String> idColumn;
+    @FXML
+    private TableColumn<Cow, String> breedColumn;
+    @FXML
+    private TableColumn<Cow, Integer> ageColumn;
+    @FXML
+    private TableColumn<Cow, Integer> weightColumn;
+    @FXML
+    private TableColumn<Cow, String> insuranceColumn;
+    @FXML
+    private TableColumn<Cow, String> vaccinationStatusColumn;
+    @FXML
+    private TableColumn<Cow, String> ownerColumn;
 
     @FXML
     private void initialize() {
@@ -52,6 +70,20 @@ public class CattleManagerController {
 
         FXUtils.forceNumericTextField(cowAgeField);
         FXUtils.forceNumericTextField(cowWeightField);
+
+        TableController();
+    }
+
+    private void TableController() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        breedColumn.setCellValueFactory(new PropertyValueFactory<>("breed"));
+        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+        weightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        insuranceColumn.setCellValueFactory(new PropertyValueFactory<>("insurance"));
+        vaccinationStatusColumn.setCellValueFactory(new PropertyValueFactory<>("vaccinationStatus"));
+        ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
+
+        ownedCowsTable.getItems().setAll(CowDB.getOwnedCows());
     }
 
     @FXML
