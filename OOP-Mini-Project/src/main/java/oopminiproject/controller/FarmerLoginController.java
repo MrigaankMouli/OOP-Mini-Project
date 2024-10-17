@@ -2,16 +2,15 @@ package oopminiproject.controller;
 
 import oopminiproject.*;
 import oopminiproject.dbmanagement.*;
+import oopminiproject.utility.FXUtils;
 import oopminiproject.utility.PasswordUtils;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
+import javax.swing.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -25,7 +24,7 @@ public class FarmerLoginController {
     private PasswordField passwordField;
 
     @FXML
-    private void handleLogin() {
+    private void handleLogin(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -36,7 +35,7 @@ public class FarmerLoginController {
 
             Session session = Session.getInstance();
             session.setUsername(username);
-            moveToDashboard();
+            moveToDashboard(event);
         } else
             System.out.println("Auth failed");
 
@@ -44,28 +43,12 @@ public class FarmerLoginController {
     }
 
     @FXML
-    private void moveToRegister() {
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("farmerRegistration-view.fxml"));
-            Parent loginRoot = loader.load();
-            Stage currentStage = (Stage) usernameField.getScene().getWindow();
-            Scene newScene = new Scene(loginRoot);
-            currentStage.setScene(newScene);
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+    private void moveToRegister(ActionEvent event) {
+        FXUtils.swapScene(event, "farmerRegistration-view.fxml");
     }
 
-    private void moveToDashboard() {
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("dashboard-view.fxml"));
-            Parent dashboardRoot = loader.load();
-            Stage currentStage = (Stage) usernameField.getScene().getWindow();
-            Scene newScene = new Scene(dashboardRoot);
-            currentStage.setScene(newScene);
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+    private void moveToDashboard(ActionEvent event) {
+        FXUtils.swapScene(event, "dashboard-view.fxml");
     }
 
     //TODO: Add ADMIN LOGIN page.

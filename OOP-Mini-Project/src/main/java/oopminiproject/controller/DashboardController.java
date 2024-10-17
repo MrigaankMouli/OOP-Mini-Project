@@ -2,16 +2,13 @@ package oopminiproject.controller;
 
 import oopminiproject.HelloApplication;
 import oopminiproject.Session;
+import oopminiproject.utility.FXUtils;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
+import javax.swing.*;
 import java.io.IOException;
 
 import java.util.logging.Logger;
@@ -24,7 +21,7 @@ public class DashboardController {
     private Label currentUser;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         Session session = Session.getInstance();
         currentUser.setText(session.getUsername());
     }
@@ -38,20 +35,12 @@ public class DashboardController {
     }
 
     private void moveToLogin(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("farmerLogin-view.fxml"));
-            Parent loginRoot = loader.load();
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene loginScene = new Scene(loginRoot);
-            currentStage.setScene(loginScene);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+        FXUtils.swapScene(event, "farmerLogin-view.fxml");
     }
 
     @FXML
-    private void moveToCattleManager() {
-
+    private void moveToCattleManager(ActionEvent event) {
+        FXUtils.swapScene(event, "cattleManager-view.fxml");
     }
 
     @FXML
