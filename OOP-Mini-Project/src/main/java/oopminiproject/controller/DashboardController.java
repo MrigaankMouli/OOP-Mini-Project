@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
@@ -17,7 +18,16 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 public class DashboardController {
-    private static final Logger LOGGER = Logger.getLogger(FarmerLoginController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DashboardController.class.getName());
+
+    @FXML
+    private Label currentUser;
+
+    @FXML
+    public void initialize() {
+        Session session = Session.getInstance();
+        currentUser.setText(session.getUsername());
+    }
 
     @FXML
     private void handleLogout(ActionEvent event) {

@@ -37,8 +37,7 @@ public class FarmerLoginController {
             Session session = Session.getInstance();
             session.setUsername(username);
             moveToDashboard();
-        }
-        else
+        } else
             System.out.println("Auth failed");
 
         //TODO: add better user facing messages. "Wrong password" etc
