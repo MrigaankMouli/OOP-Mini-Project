@@ -43,35 +43,32 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <SplitPane dividerPositions="0.6876712328767123" layoutY="-4.0" orientation="VERTICAL" prefHeight="367.0" prefWidth="320.0">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                    <TableView fx:id="ownedCowsTable" prefHeight="248.0" prefWidth="320.0">
+                    <TableView fx:id="uninsuredCowsTable" prefHeight="248.0" prefWidth="320.0">
                         <columns>
-                            <TableColumn fx:id="idColumn" prefWidth="23.0" text="ID" />
-                            <TableColumn fx:id="breedColumn" prefWidth="73.0" text="Breed" />
-                            <TableColumn fx:id="ageColumn" prefWidth="35.0" text="Age" />
-                            <TableColumn fx:id="weightColumn" prefWidth="52.0" text="Weight" />
-                            <TableColumn fx:id="insuranceColumn" prefWidth="62.0" text="Insurance" />
-                            <TableColumn fx:id="vaccinationStatusColumn" prefWidth="75.5" text="Vax status" />
+                            <TableColumn fx:id="idColumn" prefWidth="39.5" text="ID" />
+                            <TableColumn fx:id="breedColumn" prefWidth="99.0" text="Breed" />
+                            <TableColumn fx:id="ageColumn" prefWidth="44.0" text="Age" />
+                            <TableColumn fx:id="weightColumn" prefWidth="61.5" text="Weight" />
+                            <TableColumn fx:id="vaccinationStatusColumn" prefWidth="72.5" text="Vax status" />
                         </columns>
                     </TableView>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <Label prefHeight="31.0" prefWidth="135.0" text="Select cow from table">
                         <padding>
-                            <Insets left="5.0"/>
+                            <Insets left="5.0" />
                         </padding>
                     </Label>
-                    <Label layoutX="-1.0" layoutY="36.0" prefHeight="65.0" prefWidth="144.0"
-                           text="Calculated Premium: ">
+                    <Label layoutX="-1.0" layoutY="36.0" prefHeight="65.0" prefWidth="144.0" text="Calculated Premium: ">
                         <padding>
-                            <Insets left="5.0"/>
+                            <Insets left="5.0" />
                         </padding>
                     </Label>
-                    <TextField fx:id="cowPremium" layoutX="118.0" layoutY="57.0" onAction="#cowSelected"
-                               prefHeight="25.0" prefWidth="156.0" promptText="select cow"/>
+                    <TextField fx:id="cowPremiumField" editable="false" layoutX="118.0" layoutY="57.0" prefHeight="25.0" prefWidth="156.0" promptText="select cow" />
                 </AnchorPane>
             </SplitPane>
         </AnchorPane>
     </SplitPane>
-    <Button mnemonicParsing="false" onAction="#handleBack" text="Button" />
+    <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="52.0" text="Back" />
     <Label fx:id="currentUser" layoutX="55.0" prefHeight="25.0" prefWidth="271.0" text="Username" />
 </AnchorPane>

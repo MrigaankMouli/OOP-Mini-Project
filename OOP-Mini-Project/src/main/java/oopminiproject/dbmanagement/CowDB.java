@@ -3,6 +3,7 @@ package oopminiproject.dbmanagement;
 import oopminiproject.Cow;
 import oopminiproject.Session;
 import oopminiproject.utility.SecurityUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,17 +64,13 @@ public class CowDB {
         }
     }
 
-    @org.jetbrains.annotations.NotNull
-    public static List<Cow> getOwnedCows() {
-        String owner = Session.getInstance().getUsername();
-
-        String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, checksum FROM cows WHERE owner = ?";
-
-        List<Cow> ownedCows = new ArrayList<>();
+    //returns list of matching records from database per SQL
+    private static @NotNull List<Cow> getCowList(String sql, @NotNull Consumer<PreparedStatement> statementHandler) {
+        List<Cow> cows = new ArrayList<>();
 
         try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, owner);
+            statementHandler.accept(preparedStatement);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -82,18 +80,57 @@ public class CowDB {
                 int weight = resultSet.getInt("weight");
                 String insurance = resultSet.getString("insurance");
                 String vaccinationStatus = resultSet.getString("vaccinationStatus");
+                String owner = resultSet.getString("owner");
 
                 String calculatedHash = SecurityUtils.hash(breed + age + weight + insurance +
-                                                            vaccinationStatus + owner);
+                        vaccinationStatus + owner);
                 if (calculatedHash.equals(resultSet.getString("checksum"))) {
                     Cow cow = new Cow(id, breed, age, weight, insurance, vaccinationStatus, owner);
-                    ownedCows.add(cow);
-                } //TODO: what to do if this is untrue?
+                    cows.add(cow);
+                } else {
+                    LOGGER.log(Level.WARNING, "Checksum mismatch for cow ID: " + id);
+                }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
-        return ownedCows;
+        return cows;
+    }
+
+    @org.jetbrains.annotations.NotNull
+    public static List<Cow> getOwnedCows() {
+        String owner = Session.getInstance().getUsername();
+
+        String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, owner, checksum " +
+                     "FROM cows " +
+                     "WHERE owner = ?";
+
+        return getCowList(sql, preparedStatement -> {
+            try {
+                preparedStatement.setString(1, owner);
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+        });
+    }
+
+    @org.jetbrains.annotations.NotNull
+    public static List<Cow> getUninsuredCows() {
+        String owner = Session.getInstance().getUsername();
+        String insurance = "None";
+
+        String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, owner, checksum " +
+                     "FROM cows " +
+                     "WHERE owner = ? AND insurance = ?";
+
+        return getCowList(sql, preparedStatement -> {
+            try {
+                preparedStatement.setString(1, owner);
+                preparedStatement.setString(2, insurance);
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+        });
     }
 }

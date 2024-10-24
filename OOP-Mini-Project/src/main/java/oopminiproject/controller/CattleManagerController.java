@@ -21,7 +21,7 @@ public class CattleManagerController {
     @FXML
     private TextField cowAgeField;
 
-    ToggleGroup vaccinationStatusGroup = new ToggleGroup();
+    private final ToggleGroup vaccinationStatusGroup = new ToggleGroup();
     @FXML
     private TextField cowWeightField;
 

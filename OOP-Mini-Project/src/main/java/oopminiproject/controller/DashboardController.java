@@ -15,8 +15,7 @@ public class DashboardController {
 
     @FXML
     private void initialize() {
-        Session session = Session.getInstance();
-        currentUser.setText(session.getUsername());
+        currentUser.setText(Session.getInstance().getUsername());
     }
 
     @FXML
