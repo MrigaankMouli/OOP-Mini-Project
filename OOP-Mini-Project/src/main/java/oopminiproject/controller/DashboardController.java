@@ -8,11 +8,7 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
 public class DashboardController {
-    private static final Logger LOGGER = Logger.getLogger(DashboardController.class.getName());
 
     @FXML
     private Label currentUser;
@@ -41,8 +37,8 @@ public class DashboardController {
     }
 
     @FXML
-    private void moveToInsuranceReview() {
-
+    private void moveToInsuranceReview(ActionEvent event) {
+        FXUtils.swapScene(event, "insuranceReview-view.fxml");
     }
 
     @FXML

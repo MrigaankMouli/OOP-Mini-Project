@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oopminiproject.HelloApplication;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 public class FXUtils {
     private static final Logger LOGGER = Logger.getLogger(FXUtils.class.getName());
 
-    public static void swapScene(ActionEvent event, String resource) {
+    public static void swapScene(@NotNull ActionEvent event, String resource) {
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(resource));
             Parent root = loader.load();
@@ -28,7 +29,7 @@ public class FXUtils {
         }
     }
 
-    public static void forceNumericTextField(TextField textField) {
+    public static void forceNumericTextField(@NotNull TextField textField) {
         textField.textProperty().addListener((observableValue, oldvalue, newvalue) -> {
             if (!newvalue.matches("\\d*"))
                 textField.setText(newvalue.replaceAll("\\D", ""));

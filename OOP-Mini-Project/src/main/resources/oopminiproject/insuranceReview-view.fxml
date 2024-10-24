@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopminiproject.controller.InsuranceReviewController">
+    <SplitPane dividerPositions="0.459866220735786" layoutY="31.0" prefHeight="367.0" prefWidth="600.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <Accordion fx:id="insuranceAccordion" prefHeight="367.0" prefWidth="600.0">
+                <panes>
+                    <TitledPane fx:id="lrpPane" animated="false" text="Livestock Risk Protection (LRP)">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
+                            <TextArea fx:id="lrpText" editable="false" prefHeight="299.0" prefWidth="272.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                        </AnchorPane>
+                    </TitledPane>
+                    <TitledPane fx:id="ciPane" animated="false" text="Cattle Insurance (CI)">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
+                            <TextArea fx:id="ciText" editable="false" prefHeight="299.0" prefWidth="271.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                        </AnchorPane>
+                    </TitledPane>
+                    <TitledPane fx:id="lgmPane" animated="false" text="Livestock Gross Margin (LGM)">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
+                            <TextArea fx:id="lgmText" editable="false" prefHeight="299.0" prefWidth="271.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                        </AnchorPane>
+                    </TitledPane>
+                    <TitledPane fx:id="ypPane" animated="false" layoutX="10.0" layoutY="60.0" text="Yield Protection (YP)">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
+                            <TextArea fx:id="ypText" editable="false" prefHeight="268.0" prefWidth="272.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                        </AnchorPane>
+                    </TitledPane>
+                </panes>
+            </Accordion>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <SplitPane dividerPositions="0.6876712328767123" layoutY="-4.0" orientation="VERTICAL" prefHeight="367.0" prefWidth="320.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <TableView fx:id="ownedCowsTable" prefHeight="248.0" prefWidth="320.0">
+                        <columns>
+                            <TableColumn fx:id="idColumn" prefWidth="23.0" text="ID" />
+                            <TableColumn fx:id="breedColumn" prefWidth="73.0" text="Breed" />
+                            <TableColumn fx:id="ageColumn" prefWidth="35.0" text="Age" />
+                            <TableColumn fx:id="weightColumn" prefWidth="52.0" text="Weight" />
+                            <TableColumn fx:id="insuranceColumn" prefWidth="62.0" text="Insurance" />
+                            <TableColumn fx:id="vaccinationStatusColumn" prefWidth="75.5" text="Vax status" />
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <Label prefHeight="31.0" prefWidth="135.0" text="Select cow from table">
+                        <padding>
+                            <Insets left="5.0"/>
+                        </padding>
+                    </Label>
+                    <Label layoutX="-1.0" layoutY="36.0" prefHeight="65.0" prefWidth="144.0"
+                           text="Calculated Premium: ">
+                        <padding>
+                            <Insets left="5.0"/>
+                        </padding>
+                    </Label>
+                    <TextField fx:id="cowPremium" layoutX="118.0" layoutY="57.0" onAction="#cowSelected"
+                               prefHeight="25.0" prefWidth="156.0" promptText="select cow"/>
+                </AnchorPane>
+            </SplitPane>
+        </AnchorPane>
+    </SplitPane>
+    <Button mnemonicParsing="false" onAction="#handleBack" text="Button" />
+    <Label fx:id="currentUser" layoutX="55.0" prefHeight="25.0" prefWidth="271.0" text="Username" />
+</AnchorPane>

@@ -7,11 +7,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.utility.FXUtils;
-import oopminiproject.utility.SecurityUtils;
 import oopminiproject.Cow;
 
-import java.util.List;
-
+//TODO: add edit data functionality
 public class CattleManagerController {
 
     @FXML
@@ -48,8 +46,6 @@ public class CattleManagerController {
     private TableColumn<Cow, String> insuranceColumn;
     @FXML
     private TableColumn<Cow, String> vaccinationStatusColumn;
-    @FXML
-    private TableColumn<Cow, String> ownerColumn;
 
     @FXML
     private void initialize() {
@@ -58,7 +54,7 @@ public class CattleManagerController {
                                         "Ongole", "Sahiwal", "Deoni", "Other");
 
         cowInsuranceBox.getItems().removeAll(cowInsuranceBox.getItems());
-        cowInsuranceBox.getItems().addAll("LRP", "CI", "LGM", "YP");
+        cowInsuranceBox.getItems().addAll("LRP", "CI", "LGM", "YP", "None");
         //LRP: Livestock Risk Protection
         //CI: Cattle insurance
         //LGM: Livestock Gross Margin
@@ -81,7 +77,6 @@ public class CattleManagerController {
         weightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         insuranceColumn.setCellValueFactory(new PropertyValueFactory<>("insurance"));
         vaccinationStatusColumn.setCellValueFactory(new PropertyValueFactory<>("vaccinationStatus"));
-        ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
 
         ownedCowsTable.getItems().setAll(CowDB.getOwnedCows());
     }
@@ -111,5 +106,7 @@ public class CattleManagerController {
 
         CowDB.createCowTable();
         CowDB.insertCow(cowBreed, cowAge, cowWeight, cowInsurance, cowVaccinationStatus, cowOwner);
+
+        ownedCowsTable.getItems().setAll(CowDB.getOwnedCows());
     }
 }

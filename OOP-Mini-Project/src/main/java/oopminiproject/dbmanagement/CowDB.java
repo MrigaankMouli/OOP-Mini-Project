@@ -66,7 +66,7 @@ public class CowDB {
     public static List<Cow> getOwnedCows() {
         String owner = Session.getInstance().getUsername();
 
-        String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, owner, checksum FROM cows WHERE owner = ?";
+        String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, checksum FROM cows WHERE owner = ?";
 
         List<Cow> ownedCows = new ArrayList<>();
 
