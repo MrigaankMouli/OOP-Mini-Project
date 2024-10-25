@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="oopminiproject.controller.FarmerRegistrationController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopminiproject.controller.FarmerRegistrationController">
 
     <GridPane hgap="10" prefHeight="400.0" prefWidth="600.0" vgap="10">
         <padding>
@@ -29,8 +29,9 @@
         <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <PasswordField fx:id="passwordField" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Button onAction="#handleRegister" prefWidth="60.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" />
-      <Button layoutX="410.0" layoutY="343.0" onAction="#moveToLogin" prefWidth="60.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" />
+        <Button onAction="#handleRegister" prefWidth="60.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" />
+      <Button layoutX="410.0" layoutY="343.0" onAction="#moveToLogin" prefWidth="60.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" />
+      <Label fx:id="statusLabel" GridPane.rowIndex="8" />
       <columnConstraints>
          <ColumnConstraints maxWidth="293.0" minWidth="218.0" prefWidth="277.0" />
          <ColumnConstraints maxWidth="144.0" minWidth="300.0" prefWidth="85.0" />

@@ -47,18 +47,17 @@ public class FarmerDB {
         }
     }
 
-    public static String fetchPasswordHash(String username) {
-        String sql = "SELECT hashedPassword FROM farmers WHERE username = ?";
-
-        String fetchedHash = "";
+    private static String fetchItem(String item, String username) {
+        String sql = "SELECT " + item + " FROM farmers WHERE username = ?";
+        String fetchedItem = "";
 
         try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                fetchedHash = resultSet.getString("hashedPassword");
-                System.out.println("Fetched hash: " + fetchedHash);
+                fetchedItem = resultSet.getString(item);
+                System.out.println("Fetched item: " + fetchedItem);
             } else {
                 System.out.println("Unable to fetch.");
             }
@@ -66,7 +65,17 @@ public class FarmerDB {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
-        return fetchedHash;
+        return fetchedItem;
+    }
+
+    public static String fetchPasswordHash(String username) {
+        String itemToFetch = "hashedPassword";
+        return fetchItem(itemToFetch, username);
+    }
+
+    public static boolean isUsernameTaken(String username) {
+        String itemToFetch = "username";
+        return !fetchItem(itemToFetch, username).isEmpty();
     }
 
     //TODO: write a full name fetch method for cow ownership in DB.

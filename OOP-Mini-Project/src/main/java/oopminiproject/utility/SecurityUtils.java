@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SecurityUtils {
-    private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SecurityUtils.class.getName());
 
     public static String hash(String string) {
         String hashedString = "";

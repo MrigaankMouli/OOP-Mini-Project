@@ -1,6 +1,8 @@
 package oopminiproject.controller;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
+import oopminiproject.Session;
 import oopminiproject.dbmanagement.*;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.utility.SecurityUtils;
@@ -32,17 +34,35 @@ public class FarmerRegistrationController {
     private PasswordField passwordField;
 
     @FXML
-    private void handleRegister() {
+    private Label statusLabel;
+
+    @FXML
+    private void handleRegister(ActionEvent event) {
         String username = usernameField.getText();
         String fullName = fullNameField.getText();
         String farmAddress = farmAddressField.getText();
         String password = passwordField.getText();
+
+        if (FarmerDB.isUsernameTaken(username)) {
+            statusLabel.setText("Username already taken!");
+            return;
+        }
+
+        //TODO: add password strength protection
 
         String hashedPassword = SecurityUtils.hash(password);
 
         FarmerDB.createFarmerTable();
 
         FarmerDB.insertFarmer(username, fullName, farmAddress, hashedPassword);
+
+        Session session = Session.getInstance();
+        session.setUsername(username);
+        moveToDashboard(event);
+    }
+
+    private void moveToDashboard(ActionEvent event) {
+        FXUtils.swapScene(event, "dashboard-view.fxml");
     }
 
     @FXML
