@@ -82,21 +82,26 @@ public class InsuranceReviewController {
     @FXML
     private void updatePremiumField() {
         if (selectedCow != null && selectedPane != null) {
-            if (selectedPane == lrpPane) {
-                cowPremiumField.setText("1");
-            } else if (selectedPane == ciPane) {
-                cowPremiumField.setText("2");
-            } else if (selectedPane == lgmPane) {
-                cowPremiumField.setText("3");
-            } else if (selectedPane == ypPane) {
-                cowPremiumField.setText("4");
-            }
+            if (selectedPane == lrpPane)
+                cowPremiumField.setText(String.valueOf(selectedCow.calculateLRPPremium()));
+            else if (selectedPane == ciPane)
+                cowPremiumField.setText(String.valueOf(selectedCow.calculateCIPremium()));
+            else if (selectedPane == lgmPane)
+                cowPremiumField.setText(String.valueOf(selectedCow.calculateLGMPremium()));
+            else if (selectedPane == ypPane)
+                cowPremiumField.setText(String.valueOf(selectedCow.calculateYPPremium()));
         }
-        //TODO: make the premium calculation meaningful
     }
 
     @FXML
     private void handleBack(ActionEvent event) {
         FXUtils.swapScene(event, "dashboard-view.fxml");
+    }
+
+    @FXML
+    private void handleInsuranceApplication(ActionEvent event) {
+        if (selectedCow != null && selectedPane != null) {
+
+        }
     }
 }

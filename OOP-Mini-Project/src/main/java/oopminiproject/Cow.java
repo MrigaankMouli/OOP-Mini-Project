@@ -44,7 +44,7 @@ public class Cow {
     public void setVaccinationStatus(String vaccinationStatus) { this.vaccinationStatus = vaccinationStatus; }
     public void setOwner(String owner) { this.owner = owner; }
 
-    public double computerMarketValue() {
+    public int calculateMarketValue() {
         double valueMultiplier = 1.0;
 
         if (Arrays.stream(highValueBreeds).anyMatch(i -> i.equals(breed)))
@@ -62,7 +62,68 @@ public class Cow {
         if (vaccinationStatus.equals("Full")) valueMultiplier += 0.3;
         else if (vaccinationStatus.equals("None")) valueMultiplier -= 0.3;
 
-        int baseValue = 40000;
-        return baseValue * valueMultiplier;
+        final int baseMarketValue = 40000;
+        double marketValue = baseMarketValue * valueMultiplier;
+        return (int) marketValue;
+    }
+
+    public int calculateLRPPremium() {
+        double premiumMultiplier = 1.0;
+
+        if (age < 2 || age > 5) premiumMultiplier += 0.2;
+
+        if (Arrays.stream(highValueBreeds).anyMatch(i -> i.equals(breed)))
+            premiumMultiplier += 0.1;
+        else if (Arrays.stream(lowValueBreeds).anyMatch(i -> i.equals(breed)))
+            premiumMultiplier -= 0.1;
+
+        if (vaccinationStatus.equals("Full")) premiumMultiplier -= 0.2;
+        else if (vaccinationStatus.equals("None")) premiumMultiplier += 0.2;
+
+        double basePremium = 0.04 * calculateMarketValue();
+        double lrpPremium = basePremium * premiumMultiplier;
+        return (int) lrpPremium;
+    }
+
+    public int calculateCIPremium() {
+        double premiumMultiplier = 1.0;
+
+        if (age >= 2 && age <= 5) premiumMultiplier -= 0.15;
+        else if (age < 2 || age > 8) premiumMultiplier += 0.15;
+
+        if (vaccinationStatus.equals("Full")) premiumMultiplier -= 0.25;
+        else if (vaccinationStatus.equals("None")) premiumMultiplier += 0.25;
+
+        premiumMultiplier += weight * 0.0001;
+
+        double basePremium = 0.05 * calculateMarketValue();
+        double  ciPremium = basePremium * premiumMultiplier;
+        return (int) ciPremium;
+    }
+
+    public int calculateLGMPremium() {
+        double premiumMultiplier = 1.0;
+
+        if (vaccinationStatus.equals("Full")) premiumMultiplier -= 0.2;
+        else if (vaccinationStatus.equals("None")) premiumMultiplier += 0.2;
+
+        premiumMultiplier += weight * 0.0002;
+
+        double basePremium = 0.06 * calculateMarketValue();
+        double  lgmPremium = basePremium * premiumMultiplier;
+        return (int) lgmPremium;
+    }
+
+    public int calculateYPPremium() {
+        double premiumMultiplier = 1.0;
+
+        if (age >= 2 && age <= 5) premiumMultiplier -= 0.1;
+        else premiumMultiplier += 0.1;
+
+        premiumMultiplier += weight * 0.00015;
+
+        double basePremium = 0.045 * calculateMarketValue();
+        double  ypPremium = basePremium * premiumMultiplier;
+        return (int) ypPremium;
     }
 }
