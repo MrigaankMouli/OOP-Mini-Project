@@ -4,6 +4,7 @@ import oopminiproject.Cow;
 import oopminiproject.Session;
 import oopminiproject.utility.SecurityUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -132,5 +133,95 @@ public class CowDB {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         });
+    }
+
+    private static @Nullable Cow getCow(int id) {
+        String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, owner, checksum FROM cows " +
+                     "WHERE id = ?";
+
+        List<Cow> result = getCowList(sql, preparedStatement -> {
+            try {
+                preparedStatement.setInt(1, id);
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+        });
+
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    private static void updateCowData(int id, String column, Object newData) {
+        String sql = "UPDATE cows SET " + column + " = ?, checksum = ? WHERE id = ?";
+
+        try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            if (newData instanceof String) {
+                preparedStatement.setString(1, (String) newData);
+            } else if (newData instanceof Integer) {
+                preparedStatement.setInt(1, (Integer) newData);
+            } else {
+                LOGGER.log(Level.SEVERE, "Unsupported data type for column: " + column);
+                return;
+            }
+
+            Cow cow = getCow(id);
+            if (cow == null) {
+                LOGGER.log(Level.SEVERE, "No cow found with ID: " + id);
+                return;
+            }
+
+            switch (column) {
+                case "breed":
+                    assert newData instanceof String;
+                    cow.setBreed((String) newData);
+                    break;
+                case "age":
+                    assert newData instanceof Integer;
+                    cow.setAge((Integer) newData);
+                    break;
+                case "weight":
+                    assert newData instanceof Integer;
+                    cow.setWeight((Integer) newData);
+                    break;
+                case "insurance":
+                    assert newData instanceof String;
+                    cow.setInsurance((String) newData);
+                    break;
+                case "vaccinationStatus":
+                    assert newData instanceof String;
+                    cow.setVaccinationStatus((String) newData);
+                    break;
+                case "owner":
+                    assert newData instanceof String;
+                    cow.setOwner((String) newData);
+                    break;
+                default:
+                    LOGGER.log(Level.SEVERE, "Invalid column name: " + column);
+                    return;
+            }
+
+            String newChecksum = SecurityUtils.hash(
+                    cow.getBreed() + cow.getAge() + cow.getWeight() + cow.getInsurance() +
+                            cow.getVaccinationStatus() + cow.getOwner()
+            );
+
+            preparedStatement.setString(2, newChecksum);
+            preparedStatement.setInt(3, id);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Cow data updated successfully.");
+            } else {
+                LOGGER.log(Level.WARNING, "No rows updated, check cow ID and column name.");
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+    }
+
+    public static void updateCowInsurance(int id, String insurance) {
+        String column = "insurance";
+        updateCowData(id, column, insurance);
     }
 }

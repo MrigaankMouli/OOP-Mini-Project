@@ -101,7 +101,13 @@ public class InsuranceReviewController {
     @FXML
     private void handleInsuranceApplication(ActionEvent event) {
         if (selectedCow != null && selectedPane != null) {
-
+            String insurance = "";
+            if (selectedPane == lrpPane) insurance = "LRP";
+            else if (selectedPane == ciPane) insurance = "CI";
+            else if (selectedPane == lgmPane) insurance = "LGM";
+            else if (selectedPane == ypPane) insurance = "YP";
+            CowDB.updateCowInsurance(selectedCow.getId(), insurance);
+            uninsuredCowsTable.getItems().setAll(CowDB.getUninsuredCows());
         }
     }
 }
