@@ -10,7 +10,7 @@ import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.utility.FXUtils;
 
 import java.io.File;
-
+//TODO: handle insurance type via an insurance class (idiot!)
 //TODO: Handle TextAreas here only, take the blahs out of the FXML file later.
 public class InsuranceReviewController {
 

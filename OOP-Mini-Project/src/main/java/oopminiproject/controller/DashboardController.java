@@ -41,7 +41,7 @@ public class DashboardController {
     }
 
     @FXML
-    private void moveToInsuranceClaim() {
-
+    private void moveToInsuranceClaim(ActionEvent event) {
+        FXUtils.swapScene(event, "insuranceClaim-view.fxml");
     }
 }
