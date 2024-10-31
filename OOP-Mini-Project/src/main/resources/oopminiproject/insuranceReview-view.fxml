@@ -19,22 +19,22 @@
                 <panes>
                     <TitledPane fx:id="lrpPane" animated="false" text="Livestock Risk Protection (LRP)">
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
-                            <TextArea fx:id="lrpText" editable="false" prefHeight="299.0" prefWidth="272.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                            <TextArea fx:id="lrpTextArea" editable="false" prefHeight="299.0" prefWidth="272.0" text="placeholder" wrapText="true" />
                         </AnchorPane>
                     </TitledPane>
                     <TitledPane fx:id="ciPane" animated="false" text="Cattle Insurance (CI)">
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
-                            <TextArea fx:id="ciText" editable="false" prefHeight="299.0" prefWidth="271.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                            <TextArea fx:id="ciTextArea" editable="false" prefHeight="299.0" prefWidth="271.0" text="placeholder" wrapText="true" />
                         </AnchorPane>
                     </TitledPane>
                     <TitledPane fx:id="lgmPane" animated="false" text="Livestock Gross Margin (LGM)">
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
-                            <TextArea fx:id="lgmText" editable="false" prefHeight="299.0" prefWidth="271.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                            <TextArea fx:id="lgmTextArea" editable="false" prefHeight="299.0" prefWidth="271.0" text="placeholder" wrapText="true" />
                         </AnchorPane>
                     </TitledPane>
                     <TitledPane fx:id="ypPane" animated="false" layoutX="10.0" layoutY="60.0" text="Yield Protection (YP)">
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="616.0">
-                            <TextArea fx:id="ypText" editable="false" prefHeight="268.0" prefWidth="272.0" text="blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  blah blah blah blah blah blah blah blah blah  " wrapText="true" />
+                            <TextArea fx:id="ypTextArea" editable="false" prefHeight="268.0" prefWidth="272.0" text="placeholder" wrapText="true" />
                         </AnchorPane>
                     </TitledPane>
                 </panes>
