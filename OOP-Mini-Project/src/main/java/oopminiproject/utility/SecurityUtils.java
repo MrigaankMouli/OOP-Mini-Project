@@ -1,5 +1,6 @@
 package oopminiproject.utility;
 
+import oopminiproject.Cow;
 import oopminiproject.controller.FarmerRegistrationController;
 
 import java.security.MessageDigest;
@@ -30,5 +31,10 @@ public class SecurityUtils {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         return hashedString;
+    }
+
+    public static String cowHasher(Cow cow) {
+        return hash(cow.getBreed() + cow.getAge() + cow.getWeight() + cow.getInsurance() +
+                    cow.getVaccinationStatus() + cow.getOwner());
     }
 }

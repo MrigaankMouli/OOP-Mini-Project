@@ -150,6 +150,28 @@ public class CowDB {
         return result.isEmpty() ? null : result.get(0);
     }
 
+    //Stole the generic fetch from FarmerDB changing as little as possible lol
+    public static String getCowChecksum(int id) {
+        String sql = "SELECT checksum FROM cows WHERE id = ?";
+        String fetchedItem = "";
+
+        try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                fetchedItem = resultSet.getString("checksum");
+                System.out.println("Fetched item: " + fetchedItem);
+            } else {
+                System.out.println("Unable to fetch.");
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        return fetchedItem;
+    }
+
     private static void updateCowData(int id, String column, Object newData) {
         String sql = "UPDATE cows SET " + column + " = ?, checksum = ? WHERE id = ?";
 
@@ -201,10 +223,7 @@ public class CowDB {
                     return;
             }
 
-            String newChecksum = SecurityUtils.hash(
-                    cow.getBreed() + cow.getAge() + cow.getWeight() + cow.getInsurance() +
-                            cow.getVaccinationStatus() + cow.getOwner()
-            );
+            String newChecksum = SecurityUtils.cowHasher(cow);
 
             preparedStatement.setString(2, newChecksum);
             preparedStatement.setInt(3, id);

@@ -47,6 +47,7 @@ public class FarmerDB {
         }
     }
 
+    //TODO: generic the fetchItem method also.
     private static String fetchItem(String item, String username) {
         String sql = "SELECT " + item + " FROM farmers WHERE username = ?";
         String fetchedItem = "";

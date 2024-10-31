@@ -11,6 +11,7 @@ import oopminiproject.Cow;
 import oopminiproject.dbmanagement.ClaimDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.dbmanagement.CowDB;
+import oopminiproject.utility.SecurityUtils;
 
 public class InsuranceClaimController {
     @FXML
@@ -75,8 +76,13 @@ public class InsuranceClaimController {
         LocalDate claimDate = LocalDate.now();
         String username = cow.getOwner();
 
-        ClaimDB.createClaimTable();
-        ClaimDB.insertClaim(cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username);
-        claimsTable.getItems().setAll(ClaimDB.getUserClaims());
+        if (SecurityUtils.cowHasher(cow).equals(CowDB.getCowChecksum(cowID))) {
+            ClaimDB.createClaimTable();
+            ClaimDB.insertClaim(cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username);
+            claimsTable.getItems().setAll(ClaimDB.getUserClaims());
+        } else {
+            System.out.println("Cow data corrupted/tampered");
+            //TODO: replace this with robust logging
+        }
     }
 }
