@@ -78,5 +78,12 @@ public class FarmerDB {
         return !fetchItem(itemToFetch, username).isEmpty();
     }
 
-    //TODO: write a full name fetch method for cow ownership in DB.
+    public static String fetchFullName(String username){
+        if(!isUsernameTaken(username)){
+            System.out.println("User does not exist");
+            return " ";
+        }
+        String itemToFetch = "fullName";
+        return fetchItem(itemToFetch, username);
+    }
 }
