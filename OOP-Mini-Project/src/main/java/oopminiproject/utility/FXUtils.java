@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import oopminiproject.HelloApplication;
 import org.jetbrains.annotations.NotNull;
@@ -37,8 +38,9 @@ public class FXUtils {
 
     public static void forceNumericTextField(@NotNull TextField textField) {
         textField.textProperty().addListener((observableValue, oldvalue, newvalue) -> {
-            if (!newvalue.matches("\\d*"))
+            if (!newvalue.matches("\\d*")) {
                 textField.setText(newvalue.replaceAll("\\D", ""));
+            }
         });
     }
 
@@ -60,5 +62,12 @@ public class FXUtils {
             LOGGER.log(Level.SEVERE, "Error accessing file: " + e.getMessage(), e);
         }
     }
-
+  
+    public static void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

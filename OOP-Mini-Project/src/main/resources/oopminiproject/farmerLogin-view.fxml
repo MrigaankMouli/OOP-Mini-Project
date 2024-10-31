@@ -23,9 +23,10 @@
         <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <PasswordField fx:id="passwordField" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Button onAction="#handleLogin" prefWidth="60.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" />
-        <Button layoutX="410.0" layoutY="343.0" onAction="#moveToRegister" prefWidth="60.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
-      <Button mnemonicParsing="false" text="ADMIN LOGIN" GridPane.rowIndex="7" />
+        <Button onAction="#handleLogin" prefWidth="60.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+        <Button layoutX="410.0" layoutY="343.0" onAction="#moveToRegister" prefWidth="60.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+        <Button layoutX="410.0" layoutY="343.0" onAction="#moveToAdminLogin" prefWidth="60.0" text="ADMIN LOGIN" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+
         <columnConstraints>
             <ColumnConstraints maxWidth="293.0" minWidth="218.0" prefWidth="277.0" />
             <ColumnConstraints maxWidth="144.0" minWidth="300.0" prefWidth="85.0" />

@@ -1,0 +1,42 @@
+L<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="oopminiproject.controller.AdminLoginController">
+
+    <GridPane hgap="10" prefHeight="400.0" prefWidth="600.0" vgap="10">
+        <padding>
+            <Insets bottom="20" left="20" right="20" top="20" />
+        </padding>
+
+        <Label prefWidth="213.0" text="Admin Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="adminUsernameField" promptText="Enter Admin Username" GridPane.columnIndex="1" />
+
+        <Label text="Admin Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <PasswordField fx:id="adminPasswordField" promptText="Enter Admin Password" GridPane.columnIndex="1" />
+
+        <Button onAction="#handleAdminLogin" prefWidth="60.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+        <Button layoutX="410.0" layoutY="343.0" onAction="#moveToFarmerLogin" prefWidth="60.0" text="Back to Farmer Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+
+        <columnConstraints>
+            <ColumnConstraints maxWidth="293.0" minWidth="218.0" prefWidth="277.0" />
+            <ColumnConstraints maxWidth="144.0" minWidth="300.0" prefWidth="85.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        </rowConstraints>
+    </GridPane>
+
+</AnchorPane>

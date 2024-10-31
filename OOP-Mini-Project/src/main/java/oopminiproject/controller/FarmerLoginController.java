@@ -34,10 +34,10 @@ public class FarmerLoginController {
             Session session = Session.getInstance();
             session.setUsername(username);
             moveToDashboard(event);
-        } else
+        } else {
             System.out.println("Auth failed");
-
-        //TODO: add better user facing messages. "Wrong password" etc
+        //TODO: add better messages.
+        }
     }
 
     @FXML
@@ -45,9 +45,12 @@ public class FarmerLoginController {
         FXUtils.swapScene(event, "farmerRegistration-view.fxml");
     }
 
+    @FXML
+    private void moveToAdminLogin(ActionEvent event) {
+        FXUtils.swapScene(event, "adminLogin-view.fxml");
+    }
+
     private void moveToDashboard(ActionEvent event) {
         FXUtils.swapScene(event, "dashboard-view.fxml");
     }
-
-    //TODO: Add ADMIN LOGIN page.
 }
