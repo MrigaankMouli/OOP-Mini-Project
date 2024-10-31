@@ -22,6 +22,7 @@ public class DashboardController {
     private void handleLogout(ActionEvent event) {
         Session session = Session.getInstance();
         session.setUsername(null);
+        session.setUserType(null);
 
         moveToLogin(event);
     }

@@ -45,7 +45,10 @@ public class FarmerRegistrationController {
         }
 
         if (!isPasswordStrong(password)) {
-            statusLabel.setText("Password must be at least 8 characters long and include uppercase, lowercase, digit, and special character.");
+            statusLabel.setText("Password must:\n" +
+                                " be at least 8 characters long\n" +
+                                " and include uppercase, lowercase, digit,\n" +
+                                " and special character.");
             return;
         }
 
@@ -56,6 +59,7 @@ public class FarmerRegistrationController {
 
         Session session = Session.getInstance();
         session.setUsername(username);
+        session.setUserType("FARMER");
         moveToDashboard(event);
     }
 

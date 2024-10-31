@@ -17,7 +17,6 @@ public class AdminLoginController {
 
     @FXML
     private TextField adminUsernameField;
-
     @FXML
     private PasswordField adminPasswordField;
 
@@ -49,5 +48,7 @@ public class AdminLoginController {
     private void moveToAdminDashboard(ActionEvent event) {
         FXUtils.swapScene(event, "adminDashboard-view.fxml"); 
     }
-    //TODO : Add Admin Registration Page
+
+    //NO ADMIN REGISTRATION PAGE!!! WE CANT LET FARMERS APPROVE THEIR OWN POLICIES!!
+    //The system: we preload a test admin. the prod model includes an admin side client to register into DB
 }

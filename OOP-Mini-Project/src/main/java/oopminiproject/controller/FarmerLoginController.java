@@ -33,6 +33,7 @@ public class FarmerLoginController {
 
             Session session = Session.getInstance();
             session.setUsername(username);
+            session.setUserType("FARMER");
             moveToDashboard(event);
         } else {
             System.out.println("Auth failed");

@@ -9,29 +9,46 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopminiproject.controller.FarmerRegistrationController">
+   <Label fx:id="statusLabel" layoutX="22.0" layoutY="254.0" prefHeight="118.0" prefWidth="228.0">
+      <font>
+         <Font size="10.0" />
+      </font>
+   </Label>
 
     <GridPane hgap="10" prefHeight="400.0" prefWidth="600.0" vgap="10">
         <padding>
             <Insets bottom="20" left="20" right="20" top="20" />
         </padding>
 
-        <Label prefWidth="213.0" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label prefWidth="213.0" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
         <TextField fx:id="usernameField" promptText="Enter Username" GridPane.columnIndex="1" />
 
-        <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
         <TextField fx:id="fullNameField" promptText="Enter Full Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Farm Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="Farm Address:" GridPane.columnIndex="0" GridPane.rowIndex="2">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
         <TextField fx:id="farmAddressField" prefWidth="300.0" promptText="Enter Farm Address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
         <PasswordField fx:id="passwordField" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Button onAction="#handleRegister" prefWidth="60.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" />
-      <Button layoutX="410.0" layoutY="343.0" onAction="#moveToLogin" prefWidth="60.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" />
-      <Label fx:id="statusLabel" GridPane.rowIndex="8" />
+        <Button onAction="#handleRegister" prefHeight="25.0" prefWidth="90.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" />
+      <Button layoutX="410.0" layoutY="343.0" onAction="#moveToLogin" prefHeight="25.0" prefWidth="90.0" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" />
       <columnConstraints>
          <ColumnConstraints maxWidth="293.0" minWidth="218.0" prefWidth="277.0" />
          <ColumnConstraints maxWidth="144.0" minWidth="300.0" prefWidth="85.0" />
