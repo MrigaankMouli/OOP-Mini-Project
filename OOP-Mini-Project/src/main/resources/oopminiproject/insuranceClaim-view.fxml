@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopminiproject.controller.InsuranceClaimController">
-    <SplitPane dividerPositions="0.42474916387959866" prefHeight="400.0" prefWidth="600.0">
+    <SplitPane dividerPositions="0.3612040133779264" prefHeight="400.0" prefWidth="600.0">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <GridPane prefHeight="400.0" prefWidth="251.0">
                 <columnConstraints>
@@ -52,23 +52,24 @@
                         <Insets left="10.0" right="170.0" />
                     </GridPane.margin>
                 </TextField>
-                <ComboBox fx:id="insuranceClaimBox" prefWidth="150.0" promptText="Reason for claim" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                <ComboBox fx:id="insuranceClaimBox" prefHeight="25.0" prefWidth="111.0" promptText="Claim reason" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets right="10.0" />
+                        <Insets left="40.0" right="10.0" />
                     </GridPane.margin>
                 </ComboBox>
             </GridPane>
-            <TextArea fx:id="descriptionTextArea" layoutX="13.0" layoutY="179.0" prefHeight="159.0" prefWidth="225.0" promptText="Enter description" />
+            <TextArea fx:id="descriptionTextArea" layoutX="13.0" layoutY="179.0" prefHeight="159.0" prefWidth="184.0" promptText="Enter description" />
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-            <TableView fx:id="claimsTable" prefHeight="398.0" prefWidth="341.0">
+            <TableView fx:id="claimsTable" prefHeight="398.0" prefWidth="379.0">
                 <columns>
                     <TableColumn fx:id="claimIDColumn" prefWidth="33.0" text="ClID" />
                     <TableColumn fx:id="cowIDColumn" prefWidth="38.0" text="CoID" />
-                    <TableColumn fx:id="insuranceColumn" prefWidth="52.0" text="Ins" />
-                    <TableColumn fx:id="incidentDateColumn" minWidth="0.0" prefWidth="70.0" text="IncD" />
-                    <TableColumn fx:id="claimDateColumn" minWidth="0.0" prefWidth="87.0" text="ClD" />
-               <TableColumn fx:id="incidentTypeColumn" prefWidth="60.0" text="IncType" />
+                    <TableColumn fx:id="insuranceColumn" prefWidth="37.0" text="Ins" />
+                    <TableColumn fx:id="incidentDateColumn" minWidth="0.0" prefWidth="74.0" text="IncD" />
+                    <TableColumn fx:id="claimDateColumn" minWidth="0.0" prefWidth="77.0" text="ClD" />
+               <TableColumn fx:id="incidentTypeColumn" prefWidth="54.0" text="IncType" />
+               <TableColumn fx:id="statusColumn" prefWidth="64.0" text="Status" />
                 </columns>
             </TableView>
         </AnchorPane>

@@ -28,7 +28,8 @@ public class ClaimDB {
                 "incidentDate DATE NOT NULL, " +
                 "claimDate DATE NOT NULL, " +
                 "username TEXT NOT NULL, " +
-                "checksum TEXT NOT NULL" +
+                "status TEXT NOT NULL, " +                    // New status field
+                "checksum TEXT NOT NULL " +
                 ");";
 
         try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
@@ -43,10 +44,11 @@ public class ClaimDB {
 
     public static void insertClaim(int cowID, String insurance, String incidentType, String incidentDescription,
                                    LocalDate incidentDate, LocalDate claimDate, String username) {
-        String sql = "INSERT INTO claims(cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username, checksum) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO claims(cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username, status, checksum) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String status = "PENDING"; //default status
 
-        String checksum = SecurityUtils.hash(cowID + insurance + incidentType + incidentDate + claimDate + username);
+        String checksum = SecurityUtils.hash(cowID + insurance + incidentType + incidentDate + claimDate + username + status);
 
         try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -57,7 +59,8 @@ public class ClaimDB {
             preparedStatement.setDate(5, Date.valueOf(incidentDate));
             preparedStatement.setDate(6, Date.valueOf(claimDate));
             preparedStatement.setString(7, username);
-            preparedStatement.setString(8, checksum);
+            preparedStatement.setString(8, status);  // Setting status field
+            preparedStatement.setString(9, checksum);
 
             preparedStatement.executeUpdate();
             System.out.println("Data inserted to ClaimsDB");
@@ -77,15 +80,16 @@ public class ClaimDB {
                 int claimID = resultSet.getInt("claimID");
                 int cowID = resultSet.getInt("cowID");
                 String insurance = resultSet.getString("insurance");
-                String incidentType = resultSet.getString("incidentType");       // New field
-                String incidentDescription = resultSet.getString("incidentDescription"); // New field
+                String incidentType = resultSet.getString("incidentType");
+                String incidentDescription = resultSet.getString("incidentDescription");
                 LocalDate incidentDate = resultSet.getDate("incidentDate").toLocalDate();
                 LocalDate claimDate = resultSet.getDate("claimDate").toLocalDate();
                 String username = resultSet.getString("username");
+                String status = resultSet.getString("status");
 
-                String calculatedHash = SecurityUtils.hash(cowID + insurance + incidentType + incidentDate + claimDate + username);
+                String calculatedHash = SecurityUtils.hash(cowID + insurance + incidentType + incidentDate + claimDate + username + status);
                 if (calculatedHash.equals(resultSet.getString("checksum"))) {
-                    Claim claim = new Claim(claimID, cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username);
+                    Claim claim = new Claim(claimID, cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username, status);
                     claims.add(claim);
                 } else {
                     LOGGER.log(Level.WARNING, "Checksum mismatch for claim ID: " + claimID);
@@ -102,7 +106,7 @@ public class ClaimDB {
     public static List<Claim> getUserClaims() {
         String username = Session.getInstance().getUsername();
 
-        String sql = "SELECT claimID, cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username, checksum " +
+        String sql = "SELECT claimID, cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username, status, checksum " +
                 "FROM claims " +
                 "WHERE username = ?;";
 

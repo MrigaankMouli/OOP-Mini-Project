@@ -11,8 +11,11 @@ public class Claim {
     private String username;
     private String incidentType;
     private String incidentDescription;
+    private String status; //can take state "PENDING", "APPROVED", "REJECTED"
+    //AGAIN!! ENUM!!!
 
-    public Claim(int claimID, int cowID, String insurance, String incidentType, String incidentDescription, LocalDate incidentDate, LocalDate claimDate, String username) {
+    public Claim(int claimID, int cowID, String insurance, String incidentType, String incidentDescription,
+                 LocalDate incidentDate, LocalDate claimDate, String username, String status) {
         this.claimID = claimID;
         this.cowID = cowID;
         this.insurance = insurance;
@@ -21,6 +24,7 @@ public class Claim {
         this.username = username;
         this.incidentType = incidentType;
         this.incidentDescription = incidentDescription;
+        this.status = status;
     }
 
     public int getClaimID() { return claimID; }
@@ -46,4 +50,7 @@ public class Claim {
 
     public String getIncidentDescription() { return incidentDescription; }
     public void setIncidentDescription(String incidentDescription) { this.incidentDescription = incidentDescription; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

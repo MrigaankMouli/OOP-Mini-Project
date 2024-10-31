@@ -8,34 +8,14 @@ import javafx.scene.control.Label;
 
 public class AdminDashboardController {
 
-    @FXML
-    private Label currentAdminUser;
+    public Label currentAdminUser;
 
-    @FXML
-    private void initialize() {
-        currentAdminUser.setText(Session.getInstance().getUsername());
+    public void handleLogout(ActionEvent event) {
     }
 
-    @FXML
-    private void handleLogout(ActionEvent event) {
-        Session session = Session.getInstance();
-        session.setUsername(null);
-        moveToLogin(event);
+    public void moveToLogs(ActionEvent event) {
     }
 
-    private void moveToLogin(ActionEvent event) {
-        FXUtils.swapScene(event, "adminLogin-view.fxml");
+    public void moveToClaimReview(ActionEvent event) {
     }
-
-    @FXML
-    private void moveToFarmerManagement(ActionEvent event) {
-        FXUtils.swapScene(event, "farmerManagement-view.fxml");
-    }
-    //TODO: Add Farmer Management Page(Review User, Delete User, Update User etc I dunno what admins do)
-
-    @FXML
-    private void moveToInsurancePolicyManagement(ActionEvent event) {
-        FXUtils.swapScene(event, "insurancePolicyReview-view.fxml");
-    }
-    //TODO : Add Policy Review Page
 }

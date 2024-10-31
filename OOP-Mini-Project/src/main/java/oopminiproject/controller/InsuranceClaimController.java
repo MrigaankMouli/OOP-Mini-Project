@@ -40,6 +40,8 @@ public class InsuranceClaimController {
     private TableColumn<Claim, LocalDate> claimDateColumn;
     @FXML
     private TableColumn<Claim, String> incidentTypeColumn;
+    @FXML
+    private TableColumn<Claim, String> statusColumn;
 
     @FXML
     private void initialize() {
@@ -54,6 +56,7 @@ public class InsuranceClaimController {
         incidentDateColumn.setCellValueFactory(new PropertyValueFactory<>("incidentDate"));
         claimDateColumn.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
         incidentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("incidentType"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         claimsTable.getItems().setAll(ClaimDB.getUserClaims());
         //TODO: here and wherever else required: add protection for when DB methods are called but
         //      DB may not exist yet
