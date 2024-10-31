@@ -8,14 +8,33 @@ import javafx.scene.control.Label;
 
 public class AdminDashboardController {
 
-    public Label currentAdminUser;
+    @FXML
+    private Label currentAdminUser;
 
-    public void handleLogout(ActionEvent event) {
+    @FXML
+    private void initialize() {
+        currentAdminUser.setText(Session.getInstance().getUsername());
     }
 
-    public void moveToLogs(ActionEvent event) {
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        Session session = Session.getInstance();
+        session.setUsername(null);
+        session.setUserType(null);
+
+        moveToLogin(event);
     }
 
-    public void moveToClaimReview(ActionEvent event) {
+    private void moveToLogin(ActionEvent event) {
+        FXUtils.swapScene(event, "adminLogin-view.fxml");
+    }
+
+    @FXML
+    private void moveToClaimReview(ActionEvent event) {
+        FXUtils.swapScene(event, "claimReview-view.fxml");
+    }
+
+    @FXML
+    private void moveToLogs(ActionEvent event) {
     }
 }

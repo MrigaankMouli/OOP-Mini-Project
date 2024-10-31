@@ -1,5 +1,7 @@
 package oopminiproject.dbmanagement;
 
+import oopminiproject.Farmer;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -46,6 +48,31 @@ public class FarmerDB {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
+
+    public static Farmer getFarmer(String username) {
+        String sql = "SELECT username, fullName, farmAddress FROM farmers WHERE username = ?";
+        Farmer farmer = null;
+
+        try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String fullName = resultSet.getString("fullName");
+                String farmAddress = resultSet.getString("farmAddress");
+                farmer = new Farmer(username, fullName, farmAddress);
+                System.out.println("Farmer fetched: " + farmer);
+            } else {
+                System.out.println("No farmer found with the username: " + username);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        return farmer;
+    }
+
 
     //TODO: generic the fetchItem method also.
     private static String fetchItem(String item, String username) {

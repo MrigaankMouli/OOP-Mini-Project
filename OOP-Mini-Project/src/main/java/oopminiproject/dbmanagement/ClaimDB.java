@@ -4,6 +4,7 @@ import oopminiproject.Claim;
 import oopminiproject.Session;
 import oopminiproject.utility.SecurityUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -23,12 +24,12 @@ public class ClaimDB {
                 "claimID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "cowID INT NOT NULL, " +
                 "insurance TEXT NOT NULL, " +
-                "incidentType TEXT NOT NULL, " +               // New field
-                "incidentDescription TEXT, " +                // New field
+                "incidentType TEXT NOT NULL, " +
+                "incidentDescription TEXT, " +
                 "incidentDate DATE NOT NULL, " +
                 "claimDate DATE NOT NULL, " +
                 "username TEXT NOT NULL, " +
-                "status TEXT NOT NULL, " +                    // New status field
+                "status TEXT NOT NULL, " +
                 "checksum TEXT NOT NULL " +
                 ");";
 
@@ -103,6 +104,16 @@ public class ClaimDB {
     }
 
     @NotNull
+    public static List<Claim> getPendingClaims() {
+        String sql = "SELECT claimID, cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username, status, checksum " +
+                "FROM claims " +
+                "WHERE status = 'PENDING';";
+
+        return getClaimList(sql, preparedStatement -> {});
+    }
+
+
+    @NotNull
     public static List<Claim> getUserClaims() {
         String username = Session.getInstance().getUsername();
 
@@ -117,5 +128,50 @@ public class ClaimDB {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         });
+    }
+
+    public static @Nullable Claim getClaimByID(int claimID) {
+        String sql = "SELECT claimID, cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username, status, checksum " +
+                "FROM claims WHERE claimID = ?";
+
+        List<Claim> claims = getClaimList(sql, preparedStatement -> {
+            try {
+                preparedStatement.setInt(1, claimID);
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+        });
+
+        return claims.isEmpty() ? null : claims.get(0);
+    }
+
+
+    public static void updateClaimStatus(int claimID, String newStatus) {
+        String sql = "UPDATE claims SET status = ?, checksum = ? WHERE claimID = ?";
+
+        Claim claim = getClaimByID(claimID);
+        if (claim == null) {
+            LOGGER.log(Level.WARNING, "Claim with ID " + claimID + " does not exist.");
+            return;
+        }
+
+        String newChecksum = SecurityUtils.hash(claim.getCowID() + claim.getInsurance() + claim.getIncidentType() +
+                claim.getIncidentDate() + claim.getClaimDate() + claim.getUsername() + newStatus);
+
+        try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, newStatus);
+            preparedStatement.setString(2, newChecksum);
+            preparedStatement.setInt(3, claimID);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Claim status updated successfully.");
+            } else {
+                System.out.println("No claim found with the specified ID.");
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
     }
 }
