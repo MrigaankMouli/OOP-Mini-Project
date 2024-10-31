@@ -47,6 +47,8 @@ public class CattleManagerController {
     @FXML
     private TableColumn<Cow, String> vaccinationStatusColumn;
 
+    private Cow selectedCow;
+
     @FXML
     private void initialize() {
         cowBreedBox.getItems().removeAll(cowBreedBox.getItems());
@@ -68,6 +70,8 @@ public class CattleManagerController {
         FXUtils.forceNumericTextField(cowWeightField);
 
         TableController();
+
+        ownedCowsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> selectedCow = newSelection);
     }
 
     private void TableController() {
@@ -108,5 +112,14 @@ public class CattleManagerController {
         CowDB.insertCow(cowBreed, cowAge, cowWeight, cowInsurance, cowVaccinationStatus, cowOwner);
 
         ownedCowsTable.getItems().setAll(CowDB.getOwnedCows());
+    }
+
+    public void handleEditRequest(ActionEvent event) {
+        if (selectedCow != null) {
+            CowEditorController.setCow(selectedCow);
+            FXUtils.swapScene(event, "cowEditor-view.fxml");
+        } else {
+            System.out.println("No cow selected!");
+        }
     }
 }

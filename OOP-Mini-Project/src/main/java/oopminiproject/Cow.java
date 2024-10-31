@@ -11,7 +11,7 @@ public class Cow {
     private int age;
     private int weight;
     private String insurance;
-    private String vaccinationStatus;
+    private String vaccinationStatus; //None, Partial, Full
     private String owner;
 
     private final String[] highValueBreeds = new String[]{"Gir", "Kankrej", "Sahiwal"};

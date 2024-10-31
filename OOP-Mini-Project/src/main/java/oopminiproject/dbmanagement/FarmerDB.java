@@ -1,12 +1,19 @@
 package oopminiproject.dbmanagement;
 
+import oopminiproject.Claim;
 import oopminiproject.Farmer;
+import oopminiproject.utility.SecurityUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -50,7 +57,7 @@ public class FarmerDB {
     }
 
     public static Farmer getFarmer(String username) {
-        String sql = "SELECT username, fullName, farmAddress FROM farmers WHERE username = ?";
+        String sql = "SELECT id, username, fullName, farmAddress FROM farmers WHERE username = ?";
         Farmer farmer = null;
 
         try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
@@ -61,7 +68,8 @@ public class FarmerDB {
             if (resultSet.next()) {
                 String fullName = resultSet.getString("fullName");
                 String farmAddress = resultSet.getString("farmAddress");
-                farmer = new Farmer(username, fullName, farmAddress);
+                int id = resultSet.getInt("id");
+                farmer = new Farmer(id, username, fullName, farmAddress);
                 System.out.println("Farmer fetched: " + farmer);
             } else {
                 System.out.println("No farmer found with the username: " + username);
@@ -113,5 +121,33 @@ public class FarmerDB {
         }
         String itemToFetch = "fullName";
         return fetchItem(itemToFetch, username);
+    }
+
+    private static @NotNull List<Farmer> getFarmerList(String sql, @NotNull Consumer<PreparedStatement> statementHandler) {
+        List<Farmer> farmers = new ArrayList<>();
+        try (Connection connection = DatabaseConnector.connectToDatabase(dbName);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            statementHandler.accept(preparedStatement);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String username = resultSet.getString("username");
+                String fullName = resultSet.getString("fullName");
+                String farmAddress = resultSet.getString("farmAddress");
+
+                Farmer farmer = new Farmer(id, username, fullName, farmAddress);
+                farmers.add(farmer);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        return farmers;
+    }
+
+    public static List<Farmer> getAllFarmers() {
+        String sql = "SELECT id, username, fullName, farmAddress FROM farmers;";
+        return getFarmerList(sql, preparedStatement -> {});
     }
 }

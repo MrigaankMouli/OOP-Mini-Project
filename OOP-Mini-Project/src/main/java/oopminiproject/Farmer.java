@@ -1,14 +1,24 @@
 package oopminiproject;
 
 public class Farmer {
+    private int id;
     private String username;
     private String fullName;
     private String farmAddress;
 
-    public Farmer(String username, String fullName, String farmAddress) {
+    public Farmer(int id, String username, String fullName, String farmAddress) {
+        this.id = id;
         this.username = username;
         this.fullName = fullName;
         this.farmAddress = farmAddress;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

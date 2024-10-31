@@ -18,6 +18,7 @@ import oopminiproject.utility.SecurityUtils;
 import java.time.LocalDate;
 
 //TODO: make a more comprehensive automation system (current one is yap)
+//TODO: make it such that any insurance claim being filed removes cow from owned cows (cant own a dead cow yk)
 public class ClaimReviewController {
     @FXML
     private TextArea claimDetailsArea;

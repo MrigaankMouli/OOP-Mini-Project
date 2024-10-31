@@ -243,4 +243,24 @@ public class CowDB {
         String column = "insurance";
         updateCowData(id, column, insurance);
     }
+
+    public static void updateCowAge(int id, int age) {
+        String column = "age";
+        updateCowData(id, column, age);
+    }
+
+    public static void updateCowWeight(int id, int weight) {
+        String column = "weight";
+        updateCowData(id, column, weight);
+    }
+
+    public static void updateCowVaccinationStatus(int id, String vaccinationStatus) {
+        String column = "vaccinationStatus";
+        updateCowData(id, column, vaccinationStatus);
+    }
+
+    public static void updateCowOwner(int id, String newOwnerUsername) {
+        String column = "owner";
+        updateCowData(id, column, newOwnerUsername);
+    }
 }

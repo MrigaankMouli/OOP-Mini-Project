@@ -69,12 +69,13 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Button mnemonicParsing="false" onAction="#handleCowRegister" text="Register cow" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                <Button mnemonicParsing="false" onAction="#handleCowRegister" text="Register cow" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
             <TextField fx:id="cowAgeField" layoutX="90.0" layoutY="173.0" promptText="Age" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="80.0" right="80.0" />
                </GridPane.margin>
             </TextField>
+            <Button layoutX="94.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleEditRequest" text="Edit Table Cow" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             </GridPane>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
