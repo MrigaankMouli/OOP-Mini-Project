@@ -31,9 +31,11 @@ public class AdminDashboardController {
     private void moveToFarmerManagement(ActionEvent event) {
         FXUtils.swapScene(event, "farmerManagement-view.fxml");
     }
+    //TODO: Add Farmer Management Page(Review User, Delete User, Update User etc I dunno what admins do)
 
     @FXML
     private void moveToInsurancePolicyManagement(ActionEvent event) {
         FXUtils.swapScene(event, "insurancePolicyReview-view.fxml");
     }
+    //TODO : Add Policy Review Page
 }
