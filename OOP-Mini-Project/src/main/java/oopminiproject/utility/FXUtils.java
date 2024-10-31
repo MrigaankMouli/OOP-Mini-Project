@@ -38,9 +38,6 @@ public class FXUtils {
         });
     }
 
-    /**
-     * Shows a simple alert dialog with the specified title and content
-     */
     public static void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
