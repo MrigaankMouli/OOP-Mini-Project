@@ -11,14 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.util.regex.Pattern;
 import java.util.logging.Logger;
 
-//TODO: Implement status messages "username taken", etc.
-//TODO: Make it look nice!!
-//both of these are low priority rn. The reg page works, that's what's important.
-
 public class FarmerRegistrationController {
-
     private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
 
     @FXML
@@ -48,17 +44,27 @@ public class FarmerRegistrationController {
             return;
         }
 
-        //TODO: add password strength protection
+        if (!isPasswordStrong(password)) {
+            statusLabel.setText("Password must be at least 8 characters long and include uppercase, lowercase, digit, and special character.");
+            return;
+        }
 
         String hashedPassword = SecurityUtils.hash(password);
 
         FarmerDB.createFarmerTable();
-
         FarmerDB.insertFarmer(username, fullName, farmAddress, hashedPassword);
 
         Session session = Session.getInstance();
         session.setUsername(username);
         moveToDashboard(event);
+    }
+
+    private boolean isPasswordStrong(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=.{8,})";
+        return Pattern.matches(passwordPattern, password);
     }
 
     private void moveToDashboard(ActionEvent event) {
