@@ -67,6 +67,7 @@ public class Cow {
         return (int) marketValue;
     }
 
+    //lowkey all these methods are placeholder calculations, but I haven't fully decided if I care or not yet
     public int calculateLRPPremium() {
         double premiumMultiplier = 1.0;
 

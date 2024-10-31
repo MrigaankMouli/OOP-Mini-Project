@@ -1,6 +1,5 @@
 package oopminiproject.controller;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +9,8 @@ import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.utility.FXUtils;
 
+import java.io.File;
+//TODO: handle insurance type via an insurance class (idiot!)
 //TODO: Handle TextAreas here only, take the blahs out of the FXML file later.
 public class InsuranceReviewController {
 
@@ -18,19 +19,19 @@ public class InsuranceReviewController {
     @FXML
     private TitledPane lrpPane;
     @FXML
-    private TextArea lrpText;
+    private TextArea lrpTextArea;
     @FXML
     private TitledPane ciPane;
     @FXML
-    private TextArea ciText;
+    private TextArea ciTextArea;
     @FXML
     private TitledPane lgmPane;
     @FXML
-    private TextArea lgmText;
+    private TextArea lgmTextArea;
     @FXML
     private TitledPane ypPane;
     @FXML
-    private TextArea ypText;
+    private TextArea ypTextArea;
 
     @FXML
     private TableView<Cow> uninsuredCowsTable;
@@ -77,6 +78,11 @@ public class InsuranceReviewController {
             selectedCow = newSelection;
             updatePremiumField();
         });
+
+        FXUtils.readTextToTextArea(lrpTextArea,"lrp-description.txt");
+        FXUtils.readTextToTextArea(ciTextArea, "ci-description.txt");
+        FXUtils.readTextToTextArea(lgmTextArea, "lgm-description.txt");
+        FXUtils.readTextToTextArea(ypTextArea, "yp-description.txt");
     }
 
     @FXML
@@ -108,6 +114,7 @@ public class InsuranceReviewController {
             else if (selectedPane == ypPane) insurance = "YP";
             CowDB.updateCowInsurance(selectedCow.getId(), insurance);
             uninsuredCowsTable.getItems().setAll(CowDB.getUninsuredCows());
+            cowPremiumField.clear();
         }
     }
 }

@@ -135,7 +135,7 @@ public class CowDB {
         });
     }
 
-    private static @Nullable Cow getCow(int id) {
+    public static @Nullable Cow getCow(int id) {
         String sql = "SELECT id, breed, age, weight, insurance, vaccinationStatus, owner, checksum FROM cows " +
                      "WHERE id = ?";
 
