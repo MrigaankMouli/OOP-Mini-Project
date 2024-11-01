@@ -36,5 +36,6 @@ public class AdminDashboardController {
 
     @FXML
     private void moveToLogs(ActionEvent event) {
+        FXUtils.swapScene(event, "logViewer-view.fxml");
     }
 }

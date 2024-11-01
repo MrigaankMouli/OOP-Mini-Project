@@ -5,13 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import oopminiproject.Cow;
+import oopminiproject.Log;
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 
-import java.io.File;
-//TODO: handle insurance type via an insurance class (idiot!)
-//TODO: Handle TextAreas here only, take the blahs out of the FXML file later.
 public class InsuranceReviewController {
 
     @FXML
@@ -57,8 +56,8 @@ public class InsuranceReviewController {
 
     @FXML
     private void initialize() {
+        LogDB.createLogTable();
         currentUser.setText(Session.getInstance().getUsername());
-
         FXUtils.forceNumericTextField(cowPremiumField);
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -72,17 +71,27 @@ public class InsuranceReviewController {
         insuranceAccordion.expandedPaneProperty().addListener((observable, oldPane, newPane) -> {
             selectedPane = newPane;
             updatePremiumField();
+            if (selectedPane != null) {
+                Log log = new Log("Selected insurance pane: " + selectedPane.getText(), String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername());
+                LogDB.logAction(log);
+            }
         });
 
         uninsuredCowsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
             selectedCow = newSelection;
             updatePremiumField();
+            if (selectedCow != null) {
+                Log log = new Log("Selected cow ID: " + selectedCow.getId(), String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername());
+                LogDB.logAction(log);
+            }
         });
 
-        FXUtils.readTextToTextArea(lrpTextArea,"lrp-description.txt");
+        FXUtils.readTextToTextArea(lrpTextArea, "lrp-description.txt");
         FXUtils.readTextToTextArea(ciTextArea, "ci-description.txt");
         FXUtils.readTextToTextArea(lgmTextArea, "lgm-description.txt");
         FXUtils.readTextToTextArea(ypTextArea, "yp-description.txt");
+
+        LogDB.logAction(new Log("InsuranceReviewController initialized", String.valueOf(System.currentTimeMillis()), "System"));
     }
 
     @FXML
@@ -96,6 +105,10 @@ public class InsuranceReviewController {
                 cowPremiumField.setText(String.valueOf(selectedCow.calculateLGMPremium()));
             else if (selectedPane == ypPane)
                 cowPremiumField.setText(String.valueOf(selectedCow.calculateYPPremium()));
+
+            Log log = new Log("Updated premium field for cow ID: " + selectedCow.getId() + " and insurance: " + selectedPane.getText(),
+                    String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername());
+            LogDB.logAction(log);
         }
     }
 
@@ -112,7 +125,12 @@ public class InsuranceReviewController {
             else if (selectedPane == ciPane) insurance = "CI";
             else if (selectedPane == lgmPane) insurance = "LGM";
             else if (selectedPane == ypPane) insurance = "YP";
+
             CowDB.updateCowInsurance(selectedCow.getId(), insurance);
+            Log log = new Log("Applied " + insurance + " insurance for cow ID: " + selectedCow.getId(),
+                    String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername());
+            LogDB.logAction(log);
+
             uninsuredCowsTable.getItems().setAll(CowDB.getUninsuredCows());
             cowPremiumField.clear();
         }

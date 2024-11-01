@@ -12,8 +12,14 @@ import oopminiproject.dbmanagement.ClaimDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.utility.SecurityUtils;
+import oopminiproject.dbmanagement.LogDB;
+import oopminiproject.Log;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class InsuranceClaimController {
+    private static final Logger LOGGER = Logger.getLogger(InsuranceClaimController.class.getName());
+
     @FXML
     private DatePicker incidentDatePicker;
 
@@ -58,8 +64,9 @@ public class InsuranceClaimController {
         incidentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("incidentType"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         claimsTable.getItems().setAll(ClaimDB.getUserClaims());
-        //TODO: here and wherever else required: add protection for when DB methods are called but
-        //      DB may not exist yet
+
+        LogDB.createLogTable(); 
+        LogDB.logAction(new Log("Initialized InsuranceClaimController", String.valueOf(System.currentTimeMillis()), "System"));
     }
 
     @FXML
@@ -79,13 +86,16 @@ public class InsuranceClaimController {
         LocalDate claimDate = LocalDate.now();
         String username = cow.getOwner();
 
+        ClaimDB.createClaimTable();
+
         if (SecurityUtils.cowHasher(cow).equals(CowDB.getCowChecksum(cowID))) {
-            ClaimDB.createClaimTable();
             ClaimDB.insertClaim(cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username);
             claimsTable.getItems().setAll(ClaimDB.getUserClaims());
+            LogDB.logAction(new Log("Claim processed for cow ID: " + cowID + " by user: " + username, String.valueOf(System.currentTimeMillis()), username));
         } else {
-            System.out.println("Cow data corrupted/tampered");
-            //TODO: replace this with robust logging
+            LOGGER.log(Level.WARNING, "Data corruption or tampering detected for cow with ID: " + cowID + 
+                                       " by user: " + username + ". Claim was not processed.");
+            LogDB.logAction(new Log("Claim attempt failed for cow ID: " + cowID + " due to data corruption/tampering by user: " + username, String.valueOf(System.currentTimeMillis()), username));
         }
     }
 }

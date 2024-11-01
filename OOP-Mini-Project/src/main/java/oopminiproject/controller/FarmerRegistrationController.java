@@ -1,21 +1,20 @@
 package oopminiproject.controller;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
-import oopminiproject.Session;
-import oopminiproject.dbmanagement.*;
-import oopminiproject.utility.FXUtils;
-import oopminiproject.utility.SecurityUtils;
-
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import oopminiproject.Session;
+import oopminiproject.dbmanagement.FarmerDB;
+import oopminiproject.dbmanagement.LogDB;
+import oopminiproject.utility.FXUtils;
+import oopminiproject.utility.SecurityUtils;
+import oopminiproject.Log;
 
 import java.util.regex.Pattern;
-import java.util.logging.Logger;
 
 public class FarmerRegistrationController {
-    private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
 
     @FXML
     private TextField usernameField;
@@ -32,6 +31,14 @@ public class FarmerRegistrationController {
     @FXML
     private Label statusLabel;
 
+    public FarmerRegistrationController() {
+        initializeLogging();
+    }
+
+    private void initializeLogging() {
+        LogDB.createLogTable();
+    }
+
     @FXML
     private void handleRegister(ActionEvent event) {
         String username = usernameField.getText();
@@ -41,6 +48,7 @@ public class FarmerRegistrationController {
 
         if (FarmerDB.isUsernameTaken(username)) {
             statusLabel.setText("Username already taken!");
+            LogDB.logAction(new Log("Registration failed - username taken", String.valueOf(System.currentTimeMillis()), username));
             return;
         }
 
@@ -49,6 +57,7 @@ public class FarmerRegistrationController {
                                 " be at least 8 characters long\n" +
                                 " and include uppercase, lowercase, digit,\n" +
                                 " and special character.");
+            LogDB.logAction(new Log("Registration failed - weak password", String.valueOf(System.currentTimeMillis()), username));
             return;
         }
 
@@ -60,6 +69,8 @@ public class FarmerRegistrationController {
         Session session = Session.getInstance();
         session.setUsername(username);
         session.setUserType("FARMER");
+
+        LogDB.logAction(new Log("Registration successful", String.valueOf(System.currentTimeMillis()), username));
         moveToDashboard(event);
     }
 
@@ -71,6 +82,7 @@ public class FarmerRegistrationController {
         return Pattern.matches(passwordPattern, password);
     }
 
+    @FXML
     private void moveToDashboard(ActionEvent event) {
         FXUtils.swapScene(event, "dashboard-view.fxml");
     }

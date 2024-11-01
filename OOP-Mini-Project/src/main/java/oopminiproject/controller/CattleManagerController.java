@@ -8,8 +8,9 @@ import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.Cow;
+import oopminiproject.dbmanagement.LogDB; 
+import oopminiproject.Log; 
 
-//TODO: add edit data functionality
 public class CattleManagerController {
 
     @FXML
@@ -57,10 +58,6 @@ public class CattleManagerController {
 
         cowInsuranceBox.getItems().removeAll(cowInsuranceBox.getItems());
         cowInsuranceBox.getItems().addAll("LRP", "CI", "LGM", "YP", "None");
-        //LRP: Livestock Risk Protection
-        //CI: Cattle insurance
-        //LGM: Livestock Gross Margin
-        //YP: Yield Protection
 
         notVaccinated.setToggleGroup(vaccinationStatusGroup);
         partiallyVaccinated.setToggleGroup(vaccinationStatusGroup);
@@ -102,14 +99,14 @@ public class CattleManagerController {
         if (selected == notVaccinated) cowVaccinationStatus = "None";
         else if (selected == partiallyVaccinated) cowVaccinationStatus = "Partial";
         else cowVaccinationStatus = "Full";
-        //works, but in hindsight there must be a cleverer way / just using a combo box
-        //TODO: make this nicer
 
         String cowOwner = Session.getInstance().getUsername();
-        System.out.println(cowOwner);
 
         CowDB.createCowTable();
         CowDB.insertCow(cowBreed, cowAge, cowWeight, cowInsurance, cowVaccinationStatus, cowOwner);
+
+        // Log the cow registration
+        LogDB.logAction(new Log("Registered cow: " + cowBreed + ", Owner: " + cowOwner, String.valueOf(System.currentTimeMillis()), cowOwner));
 
         ownedCowsTable.getItems().setAll(CowDB.getOwnedCows());
     }
@@ -118,6 +115,9 @@ public class CattleManagerController {
         if (selectedCow != null) {
             CowEditorController.setCow(selectedCow);
             FXUtils.swapScene(event, "cowEditor-view.fxml");
+
+            // Log the edit request
+            LogDB.logAction(new Log("Requested edit for cow ID: " + selectedCow.getId(), String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername()));
         } else {
             System.out.println("No cow selected!");
         }

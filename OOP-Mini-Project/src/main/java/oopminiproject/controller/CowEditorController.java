@@ -10,6 +10,8 @@ import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.dbmanagement.FarmerDB;
 import oopminiproject.utility.FXUtils;
+import oopminiproject.dbmanagement.LogDB;
+import oopminiproject.Log; 
 
 public class CowEditorController {
     @FXML
@@ -80,13 +82,26 @@ public class CowEditorController {
         if (selected == notVaccinated) newCowVaccinationStatus = "None";
         else if (selected == partiallyVaccinated) newCowVaccinationStatus = "Partial";
         else newCowVaccinationStatus = "Full";
+
         if (selectedFarmer == null) selectedFarmer = FarmerDB.getFarmer(Session.getInstance().getUsername());
         String newOwnerUsername = selectedFarmer.getUsername();
 
-        if (cow.getAge() != newAge) CowDB.updateCowAge(cowID, newAge);
-        if (cow.getWeight() != newWeight) CowDB.updateCowWeight(cowID, newWeight);
-        if (!cow.getVaccinationStatus().equals(newCowVaccinationStatus)) CowDB.updateCowVaccinationStatus(cowID, newCowVaccinationStatus);
-        if (!cow.getOwner().equals(newOwnerUsername) && allowTransferBox.isSelected()) CowDB.updateCowOwner(cowID, newOwnerUsername);
+        if (cow.getAge() != newAge) {
+            CowDB.updateCowAge(cowID, newAge);
+            LogDB.logAction(new Log("Updated age of cow ID: " + cowID + " to " + newAge, String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername()));
+        }
+        if (cow.getWeight() != newWeight) {
+            CowDB.updateCowWeight(cowID, newWeight);
+            LogDB.logAction(new Log("Updated weight of cow ID: " + cowID + " to " + newWeight, String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername()));
+        }
+        if (!cow.getVaccinationStatus().equals(newCowVaccinationStatus)) {
+            CowDB.updateCowVaccinationStatus(cowID, newCowVaccinationStatus);
+            LogDB.logAction(new Log("Updated vaccination status of cow ID: " + cowID + " to " + newCowVaccinationStatus, String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername()));
+        }
+        if (!cow.getOwner().equals(newOwnerUsername) && allowTransferBox.isSelected()) {
+            CowDB.updateCowOwner(cowID, newOwnerUsername);
+            LogDB.logAction(new Log("Transferred ownership of cow ID: " + cowID + " to " + newOwnerUsername, String.valueOf(System.currentTimeMillis()), Session.getInstance().getUsername()));
+        }
 
         handleBack(event);
     }

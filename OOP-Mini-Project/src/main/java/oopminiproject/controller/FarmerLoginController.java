@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 public class FarmerLoginController {
@@ -29,15 +30,17 @@ public class FarmerLoginController {
         String hashedPassword = SecurityUtils.hash(password);
         String storedPassword = FarmerDB.fetchPasswordHash(username);
         if (hashedPassword.equals(storedPassword)) {
-            System.out.println("Auth successful");
+            System.out.println("Login successful");
+
+            LogDB.logAction(new Log("Successful login for user: " + username, String.valueOf(System.currentTimeMillis()).toString(), username));
 
             Session session = Session.getInstance();
             session.setUsername(username);
             session.setUserType("FARMER");
             moveToDashboard(event);
         } else {
-            System.out.println("Auth failed");
-        //TODO: add better messages.
+            System.out.println("Login Failed - Invalid Username or Password");
+            LogDB.logAction(new Log("Failed login attempt for user: " + username, String.valueOf(System.currentTimeMillis()).toString(), username));
         }
     }
 
