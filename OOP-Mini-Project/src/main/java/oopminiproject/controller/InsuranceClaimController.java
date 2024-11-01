@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import oopminiproject.Claim;
 import oopminiproject.Cow;
 import oopminiproject.dbmanagement.ClaimDB;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.utility.SecurityUtils;
@@ -83,9 +84,10 @@ public class InsuranceClaimController {
             ClaimDB.createClaimTable();
             ClaimDB.insertClaim(cowID, insurance, incidentType, incidentDescription, incidentDate, claimDate, username);
             claimsTable.getItems().setAll(ClaimDB.getUserClaims());
+            LogDB.logAction("CCOW", cowID, "Cow");
         } else {
             System.out.println("Cow data corrupted/tampered");
-            //TODO: replace this with robust logging
+            LogDB.logAction("FCHS", cowID, "Cow");
         }
     }
 }

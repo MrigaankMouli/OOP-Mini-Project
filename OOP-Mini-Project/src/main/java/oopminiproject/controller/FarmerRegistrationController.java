@@ -59,7 +59,10 @@ public class FarmerRegistrationController {
 
         Session session = Session.getInstance();
         session.setUsername(username);
-        session.setUserType("FARMER");
+        session.setUserType("FARMER"); //I should kill you.
+
+        LogDB.logAction("UREG", null, null);
+
         moveToDashboard(event);
     }
 
@@ -67,7 +70,7 @@ public class FarmerRegistrationController {
         if (password.length() < 8) {
             return false;
         }
-        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=.{8,})";
+        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$";
         return Pattern.matches(passwordPattern, password);
     }
 

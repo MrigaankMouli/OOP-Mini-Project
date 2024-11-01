@@ -2,6 +2,7 @@ package oopminiproject.controller;
 
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.AdminDB; // Assuming you have a similar class for admin
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.utility.SecurityUtils;
 
@@ -33,9 +34,11 @@ public class AdminLoginController {
 
             Session session = Session.getInstance();
             session.setUsername(username);
+            LogDB.logAction("ALOG", null, null);
             moveToAdminDashboard(event); 
         } else {
             System.out.println("Admin auth failed");
+            LogDB.logAction("ALGF", null, null);
             // TODO: add better messages.
         }
     }

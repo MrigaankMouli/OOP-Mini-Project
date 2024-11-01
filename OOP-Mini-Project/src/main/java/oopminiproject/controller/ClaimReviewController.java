@@ -12,6 +12,7 @@ import oopminiproject.Farmer;
 import oopminiproject.dbmanagement.ClaimDB;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.dbmanagement.FarmerDB;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.utility.SecurityUtils;
 
@@ -98,10 +99,14 @@ public class ClaimReviewController {
     private void handleVerification(ActionEvent event) {
         if (selectedClaim == null) return;
 
+        LogDB.logAction("AVCL", selectedClaim.getClaimID(), "Claim");
+
         Cow cow = CowDB.getCow(selectedClaim.getCowID());
         if (cow == null || selectedClaim.getInsurance().equals("None") ||
                 !CowDB.getCowChecksum(selectedClaim.getCowID()).equals(SecurityUtils.cowHasher(cow))) {
-            handleFail(event);
+            assert cow != null;
+            LogDB.logAction("FCHS", cow.getId(), "Cow");
+            handleRejection();
             return;
         }
 
@@ -149,18 +154,26 @@ public class ClaimReviewController {
         }
 
         if (isApproved) {
+            LogDB.logAction("CLMA", selectedClaim.getClaimID(), "Claim");
             ClaimDB.updateClaimStatus(selectedClaim.getClaimID(), "APPROVED");
         } else {
-            handleFail(event);
+            handleRejection();
         }
 
         claimsTable.getItems().setAll(ClaimDB.getPendingClaims());
     }
 
+    private void handleRejection() {
+        LogDB.logAction("CLMR", selectedClaim.getClaimID(), "Claim");
+        ClaimDB.updateClaimStatus(selectedClaim.getClaimID(), "REJECTED");
+        claimsTable.getItems().setAll(ClaimDB.getPendingClaims());
+
+    }
+
 
     @FXML
     private void handleFail(ActionEvent event) {
-        ClaimDB.updateClaimStatus(selectedClaim.getClaimID(), "REJECTED");
-        claimsTable.getItems().setAll(ClaimDB.getPendingClaims());
+        LogDB.logAction("AFCL", selectedClaim.getClaimID(), "Claim");
+        handleRejection();
     }
 }

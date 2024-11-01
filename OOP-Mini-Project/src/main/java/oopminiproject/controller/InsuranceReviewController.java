@@ -7,6 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import oopminiproject.Cow;
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 
 import java.io.File;
@@ -112,6 +113,7 @@ public class InsuranceReviewController {
             else if (selectedPane == ciPane) insurance = "CI";
             else if (selectedPane == lgmPane) insurance = "LGM";
             else if (selectedPane == ypPane) insurance = "YP";
+            LogDB.logAction("ICOW", selectedCow.getId(), "Cow");
             CowDB.updateCowInsurance(selectedCow.getId(), insurance);
             uninsuredCowsTable.getItems().setAll(CowDB.getUninsuredCows());
             cowPremiumField.clear();

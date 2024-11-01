@@ -94,6 +94,7 @@ public class ClaimDB {
                     claims.add(claim);
                 } else {
                     LOGGER.log(Level.WARNING, "Checksum mismatch for claim ID: " + claimID);
+                    LogDB.logAction("FCHS", claimID, "Claim");
                 }
             }
         } catch (SQLException e) {

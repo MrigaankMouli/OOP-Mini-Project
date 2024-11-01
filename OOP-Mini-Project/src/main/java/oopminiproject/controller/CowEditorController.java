@@ -9,6 +9,7 @@ import oopminiproject.Farmer;
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
 import oopminiproject.dbmanagement.FarmerDB;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 
 public class CowEditorController {
@@ -87,6 +88,8 @@ public class CowEditorController {
         if (cow.getWeight() != newWeight) CowDB.updateCowWeight(cowID, newWeight);
         if (!cow.getVaccinationStatus().equals(newCowVaccinationStatus)) CowDB.updateCowVaccinationStatus(cowID, newCowVaccinationStatus);
         if (!cow.getOwner().equals(newOwnerUsername) && allowTransferBox.isSelected()) CowDB.updateCowOwner(cowID, newOwnerUsername);
+
+        LogDB.logAction("ECOW", cow.getId(), "Cow");
 
         handleBack(event);
     }

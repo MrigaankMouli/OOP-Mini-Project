@@ -2,6 +2,7 @@ package oopminiproject.controller;
 
 import oopminiproject.HelloApplication;
 import oopminiproject.Session;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ public class DashboardController {
 
     @FXML
     private void handleLogout(ActionEvent event) {
+        LogDB.logAction("UEND", null, null);
+
         Session session = Session.getInstance();
         session.setUsername(null);
         session.setUserType(null);

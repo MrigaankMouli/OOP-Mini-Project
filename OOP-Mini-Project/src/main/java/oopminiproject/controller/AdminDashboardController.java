@@ -1,6 +1,7 @@
 package oopminiproject.controller;
 
 import oopminiproject.Session;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ public class AdminDashboardController {
 
     @FXML
     private void handleLogout(ActionEvent event) {
+        LogDB.logAction("AEND", null, null);
         Session session = Session.getInstance();
         session.setUsername(null);
         session.setUserType(null);
@@ -36,5 +38,6 @@ public class AdminDashboardController {
 
     @FXML
     private void moveToLogs(ActionEvent event) {
+        FXUtils.swapScene(event, "log-view.fxml");
     }
 }

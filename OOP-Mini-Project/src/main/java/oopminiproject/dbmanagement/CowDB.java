@@ -90,6 +90,7 @@ public class CowDB {
                     cows.add(cow);
                 } else {
                     LOGGER.log(Level.WARNING, "Checksum mismatch for cow ID: " + id);
+                    LogDB.logAction("FCHS", id, "Cow");
                 }
             }
         } catch (SQLException e) {

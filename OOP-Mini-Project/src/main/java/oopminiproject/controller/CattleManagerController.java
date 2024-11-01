@@ -6,8 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.CowDB;
+import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.Cow;
+
+import java.util.Comparator;
+import java.util.List;
 
 //TODO: add edit data functionality
 public class CattleManagerController {
@@ -111,7 +115,12 @@ public class CattleManagerController {
         CowDB.createCowTable();
         CowDB.insertCow(cowBreed, cowAge, cowWeight, cowInsurance, cowVaccinationStatus, cowOwner);
 
-        ownedCowsTable.getItems().setAll(CowDB.getOwnedCows());
+        List<Cow> ownedCows = CowDB.getOwnedCows();
+        ownedCowsTable.getItems().setAll(ownedCows);
+
+        Cow newCow = ownedCows.stream().max(Comparator.comparingInt(Cow::getId)).orElse(null);
+        assert newCow != null;
+        LogDB.logAction("RCOW", newCow.getId(), "Cow");
     }
 
     public void handleEditRequest(ActionEvent event) {

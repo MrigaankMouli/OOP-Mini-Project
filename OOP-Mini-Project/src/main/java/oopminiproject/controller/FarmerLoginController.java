@@ -33,10 +33,14 @@ public class FarmerLoginController {
 
             Session session = Session.getInstance();
             session.setUsername(username);
-            session.setUserType("FARMER");
+            session.setUserType("FARMER"); //useless remnant. remove when vibe is right
+
+            LogDB.logAction("ULOG", null, null);
+
             moveToDashboard(event);
         } else {
             System.out.println("Auth failed");
+            LogDB.logAction("ULGF", null, null);
         //TODO: add better messages.
         }
     }
