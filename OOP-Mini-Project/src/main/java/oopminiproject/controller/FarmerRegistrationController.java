@@ -31,14 +31,6 @@ public class FarmerRegistrationController {
     @FXML
     private Label statusLabel;
 
-    public FarmerRegistrationController() {
-        initializeLogging();
-    }
-
-    private void initializeLogging() {
-        LogDB.createLogTable();
-    }
-
     @FXML
     private void handleRegister(ActionEvent event) {
         String username = usernameField.getText();
@@ -78,7 +70,7 @@ public class FarmerRegistrationController {
         if (password.length() < 8) {
             return false;
         }
-        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=.{8,})";
+        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$";
         return Pattern.matches(passwordPattern, password);
     }
 

@@ -65,7 +65,6 @@ public class InsuranceClaimController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         claimsTable.getItems().setAll(ClaimDB.getUserClaims());
 
-        LogDB.createLogTable(); 
         LogDB.logAction(new Log("Initialized InsuranceClaimController", String.valueOf(System.currentTimeMillis()), "System"));
     }
 
