@@ -1,6 +1,5 @@
 package oopminiproject.controller;
 
-import oopminiproject.HelloApplication;
 import oopminiproject.Session;
 import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
