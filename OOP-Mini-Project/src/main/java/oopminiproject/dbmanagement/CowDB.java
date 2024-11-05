@@ -151,7 +151,6 @@ public class CowDB {
         return result.isEmpty() ? null : result.get(0);
     }
 
-    //Stole the generic fetch from FarmerDB changing as little as possible lol
     public static String getCowChecksum(int id) {
         String sql = "SELECT checksum FROM cows WHERE id = ?";
         String fetchedItem = "";

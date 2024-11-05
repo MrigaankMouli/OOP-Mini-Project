@@ -4,7 +4,6 @@ public class Session {
     private static Session instance;
     private String username;
     private String userType;  // "ADMIN" or "FARMER"
-    //TODO: userType would probably work better as an enum (like insurance!) but fuck it
 
     private Session() {
         // private constructor for singleton pattern

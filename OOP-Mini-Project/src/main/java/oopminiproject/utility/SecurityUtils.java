@@ -1,7 +1,6 @@
 package oopminiproject.utility;
 
 import oopminiproject.Cow;
-import oopminiproject.controller.FarmerRegistrationController;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

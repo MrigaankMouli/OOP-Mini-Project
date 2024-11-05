@@ -40,7 +40,6 @@ public class ClaimDB {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
-        //TODO: generalize the table creation method in utilities
     }
 
     public static void insertClaim(int cowID, String insurance, String incidentType, String incidentDescription,

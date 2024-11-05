@@ -1,8 +1,6 @@
 package oopminiproject.dbmanagement;
 
-import oopminiproject.Claim;
 import oopminiproject.Farmer;
-import oopminiproject.utility.SecurityUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
@@ -10,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -81,8 +78,6 @@ public class FarmerDB {
         return farmer;
     }
 
-
-    //TODO: generic the fetchItem method also.
     private static String fetchItem(String item, String username) {
         String sql = "SELECT " + item + " FROM farmers WHERE username = ?";
         String fetchedItem = "";
@@ -112,15 +107,6 @@ public class FarmerDB {
     public static boolean isUsernameTaken(String username) {
         String itemToFetch = "username";
         return !fetchItem(itemToFetch, username).isEmpty();
-    }
-
-    public static String fetchFullName(String username){
-        if(!isUsernameTaken(username)){
-            System.out.println("User does not exist");
-            return " ";
-        }
-        String itemToFetch = "fullName";
-        return fetchItem(itemToFetch, username);
     }
 
     private static @NotNull List<Farmer> getFarmerList(String sql, @NotNull Consumer<PreparedStatement> statementHandler) {

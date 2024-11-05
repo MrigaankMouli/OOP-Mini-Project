@@ -57,8 +57,6 @@ public class Cow {
 
         valueMultiplier += weight * 0.0005;
 
-        //Vaccination status is a lil confusing: it results in *higher* market value but lower insurance premiums.
-        //REMIND ME: to offset vaccination status as a risk thingy in premium calc.
         if (vaccinationStatus.equals("Full")) valueMultiplier += 0.3;
         else if (vaccinationStatus.equals("None")) valueMultiplier -= 0.3;
 
@@ -67,7 +65,6 @@ public class Cow {
         return (int) marketValue;
     }
 
-    //lowkey all these methods are placeholder calculations, but I haven't fully decided if I care or not yet
     public int calculateLRPPremium() {
         double premiumMultiplier = 1.0;
 

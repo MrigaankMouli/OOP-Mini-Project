@@ -27,7 +27,6 @@ public class Log {
     //system rejects claim (CLMR)
     //failed admin login (ALGF)
     //detected failed checksum (FCHS)
-    //TODO: are there any more?
 
     public Log(int logID, LocalDateTime time, String action, String username, String relatedEntity, Integer relatedEntityID) {
         this.logID = logID;

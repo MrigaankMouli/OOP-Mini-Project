@@ -1,7 +1,7 @@
 package oopminiproject.controller;
 
 import oopminiproject.Session;
-import oopminiproject.dbmanagement.AdminDB; // Assuming you have a similar class for admin
+import oopminiproject.dbmanagement.AdminDB;
 import oopminiproject.dbmanagement.LogDB;
 import oopminiproject.utility.FXUtils;
 import oopminiproject.utility.SecurityUtils;
@@ -11,10 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
-import java.util.logging.Logger;
-
 public class AdminLoginController {
-    private static final Logger LOGGER = Logger.getLogger(AdminLoginController.class.getName());
 
     @FXML
     private TextField adminUsernameField;
@@ -39,7 +36,6 @@ public class AdminLoginController {
         } else {
             System.out.println("Admin auth failed");
             LogDB.logAction("ALGF", null, null);
-            // TODO: add better messages.
         }
     }
 
@@ -51,7 +47,4 @@ public class AdminLoginController {
     private void moveToAdminDashboard(ActionEvent event) {
         FXUtils.swapScene(event, "adminDashboard-view.fxml"); 
     }
-
-    //NO ADMIN REGISTRATION PAGE!!! WE CANT LET FARMERS APPROVE THEIR OWN POLICIES!!
-    //The system: we preload a test admin. the prod model includes an admin side client to register into DB
 }

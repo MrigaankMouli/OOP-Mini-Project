@@ -1,6 +1,5 @@
 package oopminiproject.dbmanagement;
 
-import oopminiproject.Farmer;
 import oopminiproject.Log;
 import oopminiproject.Session;
 import oopminiproject.utility.SecurityUtils;

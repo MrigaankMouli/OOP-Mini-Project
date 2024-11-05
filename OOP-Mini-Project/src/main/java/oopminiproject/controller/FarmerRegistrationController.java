@@ -12,10 +12,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.util.regex.Pattern;
-import java.util.logging.Logger;
 
 public class FarmerRegistrationController {
-    private static final Logger LOGGER = Logger.getLogger(FarmerRegistrationController.class.getName());
 
     @FXML
     private TextField usernameField;
@@ -59,7 +57,7 @@ public class FarmerRegistrationController {
 
         Session session = Session.getInstance();
         session.setUsername(username);
-        session.setUserType("FARMER"); //I should kill you.
+        session.setUserType("FARMER");
 
         LogDB.logAction("UREG", null, null);
 

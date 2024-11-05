@@ -59,8 +59,6 @@ public class InsuranceClaimController {
         incidentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("incidentType"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         claimsTable.getItems().setAll(ClaimDB.getUserClaims());
-        //TODO: here and wherever else required: add protection for when DB methods are called but
-        //      DB may not exist yet
     }
 
     @FXML

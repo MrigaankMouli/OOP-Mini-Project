@@ -13,7 +13,6 @@ import oopminiproject.Cow;
 import java.util.Comparator;
 import java.util.List;
 
-//TODO: add edit data functionality
 public class CattleManagerController {
 
     @FXML
@@ -106,8 +105,6 @@ public class CattleManagerController {
         if (selected == notVaccinated) cowVaccinationStatus = "None";
         else if (selected == partiallyVaccinated) cowVaccinationStatus = "Partial";
         else cowVaccinationStatus = "Full";
-        //works, but in hindsight there must be a cleverer way / just using a combo box
-        //TODO: make this nicer
 
         String cowOwner = Session.getInstance().getUsername();
         System.out.println(cowOwner);

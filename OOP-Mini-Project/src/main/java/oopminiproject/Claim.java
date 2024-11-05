@@ -12,7 +12,6 @@ public class Claim {
     private String incidentType;
     private String incidentDescription;
     private String status; //can take state "PENDING", "APPROVED", "REJECTED"
-    //AGAIN!! ENUM!!!
 
     public Claim(int claimID, int cowID, String insurance, String incidentType, String incidentDescription,
                  LocalDate incidentDate, LocalDate claimDate, String username, String status) {

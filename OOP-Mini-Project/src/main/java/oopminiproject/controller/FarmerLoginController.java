@@ -10,10 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
-import java.util.logging.Logger;
-
 public class FarmerLoginController {
-    private static final Logger LOGGER = Logger.getLogger(FarmerLoginController.class.getName());
 
     @FXML
     private TextField usernameField;
@@ -33,7 +30,7 @@ public class FarmerLoginController {
 
             Session session = Session.getInstance();
             session.setUsername(username);
-            session.setUserType("FARMER"); //useless remnant. remove when vibe is right
+            session.setUserType("FARMER");
 
             LogDB.logAction("ULOG", null, null);
 
@@ -41,7 +38,6 @@ public class FarmerLoginController {
         } else {
             System.out.println("Auth failed");
             LogDB.logAction("ULGF", null, null);
-        //TODO: add better messages.
         }
     }
 
